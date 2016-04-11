@@ -7,6 +7,7 @@ package register;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +24,7 @@ import javax.servlet.http.HttpSession;
  * @author saufi
  */
 @WebServlet(name = "signup", urlPatterns = {"/register/signup"})
-public class signup extends HttpServlet {
+public class Signup extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,6 +40,7 @@ public class signup extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            out.println("asdasd");
             String redirectURL = "";
             Class.forName("com.mysql.jdbc.Driver");
             String userName = "root";
@@ -46,16 +48,25 @@ public class signup extends HttpServlet {
             String url = "jdbc:mysql://localhost/threadizzy";
             Connection connection = DriverManager.getConnection(url, userName, password);
             Statement statement = connection.createStatement();
-            String queryCheck = "Select * from user where email=" + request.getParameter("email");
-            ResultSet resultSet1 = statement.executeQuery(queryCheck);
-           
+            String emailCheck = "Select * from user where email=" + request.getParameter("email");
+            String usernameCheck = "Select * from user where email=" + request.getParameter("email");
+            ResultSet resultSet1 = statement.executeQuery(usernameCheck);
+            ResultSet resultSet2 = statement.executeQuery(emailCheck);
+
             if (resultSet1.next()) {
                 HttpSession session = request.getSession(true);
                 session.setAttribute("errormessage", 1);
                 redirectURL = "register";
                 response.sendRedirect(redirectURL);
             }
-            
+
+            if (resultSet2.next()) {
+                HttpSession session = request.getSession(true);
+                session.setAttribute("errormessage", 1);
+                redirectURL = "register";
+                response.sendRedirect(redirectURL);
+            }
+
             String query = "INSERT INTO users ( name,username,email,gender,birthday,password)"
                     + " VALUES ( '"
                     + request.getParameter("name")
@@ -101,9 +112,9 @@ public class signup extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(signup.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(signup.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -118,13 +129,11 @@ public class signup extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(signup.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(signup.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
+            
+
+       
+
     }
 
     /**
