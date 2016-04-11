@@ -20,7 +20,7 @@
                     <h1>Welcome To Threadizzy Connect People with Your Thread</h1>
 
                     <p><a class="btn btn-primary btn-lg" href="register/" role="button">SIGN UP</a></p>
-                    <p>Have an account? login <a href="auth/login">here</a></p>
+                    <p>Have an account? login <a href="<%out.print(session.getAttribute("baseUrl"));%>login-form.jsp">here</a></p>
                 </div>
             </div>
 

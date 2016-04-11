@@ -8,6 +8,15 @@
                     <h3 class="panel-title">Register Account</h3>
                 </div>
                 <div class="panel-body">
+                    <%
+                    if( session.getAttribute("errormessage") != null){
+                        %>
+                     <div class="alert alert-danger">
+                         Email has already taken
+                     </div>
+                    <%
+                    }
+                    %>
                     <form role="form">
                         <div class="form-group">
                             <label for="name">Name:</label>
@@ -32,7 +41,7 @@
 
                         <button type="submit" class="btn btn-default">REGISTER</button>
                     </form>
-                    <p>Have an account? login <a href="<%out.print(session.getAttribute("baseUrl"));%>auth/login/">here</a></p>
+                    <p>Have an account? login <a href="<%out.print(session.getAttribute("baseUrl"));%>login-form.jsp">here</a></p>
                 </div>
             </div>
         </div>

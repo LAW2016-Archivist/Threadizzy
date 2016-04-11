@@ -1,6 +1,5 @@
 <%
-    String messenger = request.getParameter("messenger");
-    String messengerAlasan = request.getParameter("alasan");
+
     session = request.getSession(true);
     session.setAttribute("baseUrl", "http://localhost:8080/Threadizzy/");
     
