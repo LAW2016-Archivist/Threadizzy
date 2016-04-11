@@ -3,15 +3,28 @@
     Created on : 10-Apr-2016, 23:07:23
     Author     : saufi
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+
 <html>
     <head>
+        <jsp:include page="head.jsp" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Threadizzy : Welcome Express Your Mind with Thread </title>
     </head>
-    <body>
-        <h1>Hello World!</h1>
+    <body class="container-fluid bg-home">
+        <div class="container">
+
+            <div class="col-md-12">
+
+                <div class="col-md-10 col-md-offset-1 home" >
+                    <h1>Welcome To Threadizzy Connect People with Your Thread</h1>
+
+                    <p><a class="btn btn-primary btn-lg" href="register/" role="button">SIGN UP</a></p>
+                    <p>Have an account? login <a href="auth/login">here</a></p>
+                </div>
+            </div>
+
+        </div>
+
     </body>
 </html>
