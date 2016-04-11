@@ -3,28 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package register;
+package auth;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.*;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author saufi
  */
-@WebServlet(name = "signup", urlPatterns = {"/register/signup"})
-public class Signup extends HttpServlet {
+@WebServlet(name = "Login", urlPatterns = {"/Login"})
+public class Login extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,41 +42,26 @@ public class Signup extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-
-            String redirectURL = "";
+             String redirectURL = "";
             Class.forName("com.mysql.jdbc.Driver");
             String userName = "root";
             String password = "root";
             String url = "jdbc:mysql://localhost/threadizzy";
             Connection connection = DriverManager.getConnection(url, userName, password);
             Statement statement = connection.createStatement();
-            String query = "INSERT INTO users ( name,username,email,gender,birthday,password)"
-                    + " VALUES ( '"
-                    + request.getParameter("name")
-                    + "','"
-                    + request.getParameter("username")
-                    + "','"
-                    + request.getParameter("email")
-                    + "','"
-                    + request.getParameter("gender")
-                    + "','"
-                    + request.getParameter("date")
-                    + "','"
-                    + request.getParameter("password")
-                    + "');";
-
-            int resultSet = statement.executeUpdate(query);
-            if (resultSet != 0) {
+            String email = "select * from users where email = '"+request.getParameter("email")+"' AND password = '"+request.getParameter("password")+"';";
+            ResultSet resultset = statement.executeQuery(email);
+            if(resultset.next()){
                 HttpSession session = request.getSession(true);
-                session.setAttribute("message", 1);
-                redirectURL = session.getAttribute("baseUrl")+"login-form.jsp";
-                response.sendRedirect(redirectURL);
-            } else {
-                out.print(query);
-            }
+                session.setAttribute("user",request.getParameter("email"));
+                out.print("masuk");
+            }else{
+                out.print("username dan password salah");
+            }    
             
-        } catch (Exception e) {
-            out.print(e.getMessage());
+            
+        } catch (SQLException ex) {
+            out.print(ex.getMessage());
         } finally {
             out.close();
         }
@@ -95,9 +82,9 @@ public class Signup extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -115,9 +102,9 @@ public class Signup extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

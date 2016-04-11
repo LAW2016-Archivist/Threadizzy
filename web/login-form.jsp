@@ -26,22 +26,23 @@
                             <%
                                 if (session.getAttribute("message") != null ) {
                             %>
-                            <div class="alert alert-danger">
+                            <div class="alert alert-success">
                                 Registration Succes
                             </div>
+                            
                             <%
-                                }
+                               session.removeAttribute("message"); }
                             %>
-                            <form role="form">
+                            <form role="form" action="Login" method="post">
 
                                 <div class="form-group">
                                     <label for="email">Email:</label>
-                                    <input type="email" name="email" class="form-control" >
+                                    <input required type="email" name="email" class="form-control" >
                                 </div>
 
                                 <div class="form-group">
                                     <label for="pwd">Password:</label>
-                                    <input type="password" name="password" class="form-control" >
+                                    <input required type="password" name="password" class="form-control" >
                                 </div>
 
 

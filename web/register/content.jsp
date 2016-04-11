@@ -20,24 +20,30 @@
                     <form role="form" action="signup" method="post">
                         <div class="form-group">
                             <label for="name">Name:</label>
-                            <input type="text" name="name" class="form-control" >
+                            <input required type="text" name="name" class="form-control" >
                         </div>
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <input type="email" name="email" class="form-control" >
+                            <input required type="email" name="email" class="form-control" >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="Gender">Gender:</label>
+                            <select required="" class="form-control" name="gender">
+                                <option>Male</option>
+                                <option>Female</option>
+                                
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="date">Birth Date:</label>
-                            <input type="date" name="date" class="form-control" >
+                            <input required type="date" name="date" class="form-control" >
                         </div>
                         <div class="form-group">
                             <label for="pwd">Password:</label>
-                            <input type="password" name="password" class="form-control" >
+                            <input required type="password" name="password" class="form-control" >
                         </div>
-                        <div class="form-group">
-                            <label for="pwd">Re-password:</label>
-                            <input type="password" name="password2" class="form-control" id="pwd">
-                        </div>
+                     
 
                         <button type="submit" class="btn btn-default">REGISTER</button>
                     </form>
