@@ -27,8 +27,8 @@ import javax.servlet.http.HttpSession;
 public class Signup extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+        * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+        * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -40,7 +40,8 @@ public class Signup extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            out.println("asdasd");
+//            out.println(request.getMethod());
+//            out.println("asdasd");
             String redirectURL = "";
             Class.forName("com.mysql.jdbc.Driver");
             String userName = "root";
@@ -129,11 +130,13 @@ public class Signup extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-            
-
-       
-
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

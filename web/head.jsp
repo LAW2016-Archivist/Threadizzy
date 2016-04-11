@@ -1,7 +1,7 @@
 <%
 
     session = request.getSession(true);
-    session.setAttribute("baseUrl", "http://localhost:8080/Threadizzy/");
+    session.setAttribute("baseUrl", "http://localhost:8084/Threadizzy/");
     
 %>
 <!-- Latest compiled and minified CSS -->
