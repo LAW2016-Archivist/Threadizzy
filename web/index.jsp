@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Threadizzy : Welcome Express Your Mind with Thread </title>
     </head>
-    <body class="container-fluid bg-home">
+    <body class="container-fluid">
         <div class="container">
 
             <div class="col-md-12">

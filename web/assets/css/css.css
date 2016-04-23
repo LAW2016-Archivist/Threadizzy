@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 
 .bg-home{
-    background: url('../../assets/img/bg-home.jpg');
+    
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -19,14 +19,13 @@ and open the template in the editor.
     margin-top: 17%;
     text-align: center;
     font-size: 100%;
-    font-family: 'Titillium Web', sans-serif;
-    color: #000000;
+ 
+
 }
 
 .home h1{
     font-size: 350%;
-    font-family: 'Titillium Web', sans-serif;
-    color: #000000;
+ 
 }
 /**
 ----------------------------------------------------
@@ -36,7 +35,7 @@ and open the template in the editor.
 }
 
 .register-bg{
-     background: url('../../assets/img/bg-home.jpg');
+   
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -52,7 +51,7 @@ and open the template in the editor.
 }
 
 .login-bg{
-     background: url('../../assets/img/bg-home.jpg');
+   
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
