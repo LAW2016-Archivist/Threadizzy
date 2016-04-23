@@ -31,7 +31,7 @@ and open the template in the editor.
 ----------------------------------------------------
 */
 .register-form{
-    margin-top: 15%
+    margin-top: 8%
 }
 
 .register-bg{
@@ -57,4 +57,16 @@ and open the template in the editor.
     -o-background-size: cover;
     background-size: cover;
     padding-bottom: 15%;
+}
+
+/**
+----------------------------------------------------
+*/
+
+.home-user-1{
+    margin-top: 8%;
+}
+
+box-user-status{
+    border: 1px solid #eee;
 }
