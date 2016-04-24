@@ -12,3 +12,4 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="<%out.print(session.getAttribute("baseUrl"));%>assets/bootstrap/js/bootstrap.min.js" ></script>
+ 

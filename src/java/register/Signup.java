@@ -57,9 +57,9 @@ public class Signup extends HttpServlet {
                     + request.getParameter("email")
                     + "','"
                     + request.getParameter("gender")
-                    + "','"
-                    + request.getParameter("date")
-                    + "','"
+                    + "',"
+                    + null
+                    + ",'"
                     + request.getParameter("password")
                     + "');";
 

@@ -14,7 +14,7 @@
     </head>
     <body>
       
-      <div class="container-fluid login-bg">
+      <div class="container-fluid bg-login">
 
          <div class="col-md-12">
             

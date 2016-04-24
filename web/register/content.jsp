@@ -1,5 +1,5 @@
 
-<div class="container-fluid register-bg">
+<div class="container-fluid bg-register">
 
     <div class="col-md-12">
         <div class="col-md-4 col-md-offset-4 register-form">
@@ -36,10 +36,7 @@
                         
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="date">Birth Date:</label>
-                    <input required type="date" name="date" class="form-control" >
-                </div>
+           
                 <div class="form-group">
                     <label for="pwd">Password:</label>
                     <input required type="password" name="password" class="form-control" >

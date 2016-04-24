@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 
 .bg-home{
-    
+    background: url('../img/bg-home.jpg');
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -34,8 +34,8 @@ and open the template in the editor.
     margin-top: 8%
 }
 
-.register-bg{
-   
+.bg-register{
+     background: url('../img/bg-register.jpg');
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -50,8 +50,8 @@ and open the template in the editor.
     margin-top: 15%
 }
 
-.login-bg{
-   
+.bg-login{
+     background: url('../img/bg-login.jpg');
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -67,6 +67,11 @@ and open the template in the editor.
     margin-top: 8%;
 }
 
-box-user-status{
-    border: 1px solid #eee;
+.box-user-thread{
+    background: #222222;
+}
+
+.thread-head{
+    
+    padding: 2%;
 }
