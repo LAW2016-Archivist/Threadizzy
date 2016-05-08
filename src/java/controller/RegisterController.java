@@ -3,28 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package register;
+package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.*;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
+import model.User;
 
 /**
  *
- * @author saufi
+ * @author seryuzaki-woorld
  */
-@WebServlet(name = "signup", urlPatterns = {"/register/signup"})
-public class Signup extends HttpServlet {
+@WebServlet(name = "RegisterController", urlPatterns = {"/RegisterController"})
+public class RegisterController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,50 +34,39 @@ public class Signup extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
+
         PrintWriter out = response.getWriter();
         try {
+            User user = new User();
+            user.setName(request.getParameter("name"));
+            user.setEmail(request.getParameter("email"));
+            user.setGender(request.getParameter("gender"));
+            user.setPassword(request.getParameter("password"));
+            if (User.checkEmail(user.getEmail())) {
 
-            String redirectURL = "";
-            Class.forName("com.mysql.jdbc.Driver");
-            String userName = "root";
-            String password = "root";
-            String url = "jdbc:mysql://localhost/threadizzy";
-            Connection connection = DriverManager.getConnection(url, userName, password);
-            Statement statement = connection.createStatement();
-            String query = "INSERT INTO users ( name,username,email,gender,birthday,password)"
-                    + " VALUES ( '"
-                    + request.getParameter("name")
-                    + "','"
-                    + request.getParameter("username")
-                    + "','"
-                    + request.getParameter("email")
-                    + "','"
-                    + request.getParameter("gender")
-                    + "',"
-                    + null
-                    + ",'"
-                    + request.getParameter("password")
-                    + "');";
-
-            int resultSet = statement.executeUpdate(query);
-            if (resultSet != 0) {
                 HttpSession session = request.getSession(true);
-                session.setAttribute("message", 1);
-                redirectURL = session.getAttribute("baseUrl")+"login-form.jsp";
+                session.setAttribute("messageEmail", "Email Has Already Taken");
+                String redirectURL = session.getAttribute("baseUrl") + "register/";
                 response.sendRedirect(redirectURL);
+
             } else {
-                out.print(query);
+
+                user.RegisterUser();
+                HttpSession session = request.getSession(true);
+                session.setAttribute("messageSuccess", "Success Create Account");
+                String redirectURL = session.getAttribute("baseUrl") + "login-form.jsp";
+                response.sendRedirect(redirectURL);
             }
-            
-        } catch (Exception e) {
-            out.print(e.getMessage());
-        } finally {
-            out.close();
+        } catch (SQLException e) {
+            out.print(e.toString());
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -95,9 +84,9 @@ public class Signup extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -115,9 +104,9 @@ public class Signup extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

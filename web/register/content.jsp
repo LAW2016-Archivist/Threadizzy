@@ -1,4 +1,5 @@
-
+<%@page import="model.User"%>
+ <jsp:useBean id="user" scope="request" class="model.User"></jsp:useBean>
 <div class="container-fluid bg-register">
 
     <div class="col-md-12">
@@ -10,28 +11,31 @@
                 </div>
                 <div class="panel-body">
                     <%
-                    if( session.getAttribute("errormessage") != null){
+                    if( session.getAttribute("messageEmail") != null){
                     %>
                     <div class="alert alert-danger">
-                     Email has already taken
+                        <%
+                        System.out.print(session.getAttribute("messageEmail"));
+                        %>
                  </div>
                  <%
              }
              %>
-             <form role="form" action="signup" method="post">
+             <form role="form" action="RegisterCOntroller" method="post">
                 <div class="form-group">
                     <label for="name">Name:</label>
-                    <input required type="text" name="name" class="form-control" >
+                    <input required type="text" name="name" class="form-control" value="<jsp:getProperty name="user" property="name"/>">
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input required type="email" name="email" class="form-control" >
+                    <input required type="email" name="email" class="form-control" value="<jsp:getProperty name="user" property="email"/>">
                 </div>
                 
                 <div class="form-group">
                     <label for="Gender">Gender:</label>
-                    <select required="" class="form-control" name="gender">
+                    <select required="" class="form-control" name="gender" value="<jsp:getProperty name="user" property="gender"/>">
                         <option>Male</option>
+                        
                         <option>Female</option>
                         
                     </select>
@@ -39,7 +43,7 @@
            
                 <div class="form-group">
                     <label for="pwd">Password:</label>
-                    <input required type="password" name="password" class="form-control" >
+                    <input required type="password" name="password" class="form-control" value="<jsp:getProperty name="user" property="password"/>">
                 </div>
                 
 

@@ -1,6 +1,23 @@
 <html>
     <head>
         <jsp:include page="/head.jsp" />
+        <%@page import="model.User"%>
+        
+        <%
+            //if not login redirect to login page
+            if (session.getAttribute("user") == null) {
+                String site = session.getAttribute("baseUrl") + "login-form.jsp";
+                response.sendRedirect(response.encodeRedirectURL(site));
+            }
+            
+            HttpSession sessionUser=request.getSession(false);  
+            String us=(String)sessionUser.getAttribute("user");
+            
+            User logginUser = new User();
+            logginUser.setEmail(us);
+            logginUser.GetUser();
+        %>
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>DASHBOARD THREADIZZY</title>
     </head>
@@ -14,25 +31,35 @@
                     <div class=" col-md-12">
                         <center>
                             <p>
-                                <img  height="120" width="120" class="img-circle" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"/>
+                                <% if(logginUser.getImage().equalsIgnoreCase("")){
+                                out.print("   <img  height=\"120\" width=\"120\" class=\"img-circle\" src=\"https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg\"/>");
+                                
+                                }else{
+                                    
+                                out.print("   <img  height=\"120\" width=\"120\" class=\"img-circle\" src=\""+session.getAttribute("baseUrl")+"img/avatar/"+
+                                        logginUser.getImage()
+                                        +"\"/>");
+                                
+                                    
+                                } %>
+                             
                             </p>
                         </center>
                     </div>
                     <div class="col-md-12" style="margin-top: 5%">
-                        <center><a>User1</a></center>
+                        <center><a><%out.print(logginUser.getName());%></a></center>
                     </div>
                     <div class="col-md-12" style="margin-top: 5%">
 
                         <div class="list-group">
-                            <a href="#" class="list-group-item">
+                            <a href="<% out.print(session.getAttribute("baseUrl")); %>dashboard/user/my-profile.jsp" class="list-group-item">
                                 My Profile
-
                             </a>
-                            <a href="#" class="list-group-item">
+                            <a href="<% out.print(session.getAttribute("baseUrl")); %>dashboard/user/edit-profile.jsp" class="list-group-item">
                                 Update Profile
                             </a>
-                            <a href="#" class="list-group-item">
-                                Setting
+                            <a href="<% out.print(session.getAttribute("baseUrl"));%>LogoutController" class="list-group-item">
+                                Logout
                             </a>
                         </div>
                     </div>

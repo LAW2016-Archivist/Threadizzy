@@ -3,17 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package auth;
+package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,13 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 /**
  *
- * @author saufi
+ * @author seryuzaki-woorld
  */
-@WebServlet(name = "Login", urlPatterns = {"/Login"})
-public class Login extends HttpServlet {
+@WebServlet(name = "LogoutController", urlPatterns = {"/LogoutController"})
+public class LogoutController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,30 +31,14 @@ public class Login extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException, SQLException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-             String redirectURL = "";
-            Class.forName("com.mysql.jdbc.Driver");
-            String userName = "root";
-            String password = "root";
-            String url = "jdbc:mysql://localhost/threadizzy";
-            Connection connection = DriverManager.getConnection(url, userName, password);
-            Statement statement = connection.createStatement();
-            String email = "select * from users where email = '"+request.getParameter("email")+"' AND password = '"+request.getParameter("password")+"';";
-            ResultSet resultset = statement.executeQuery(email);
-            if(resultset.next()){
-                HttpSession session = request.getSession(true);
-                session.setAttribute("user",request.getParameter("email"));
-                out.print("masuk");
-            }else{
-                out.print("username dan password salah");
-            }    
-            
-            
-        } catch (SQLException ex) {
-            out.print(ex.getMessage());
+            HttpSession session = request.getSession();
+            session.removeAttribute("user");
+            String redirectURL = session.getAttribute("baseUrl") + "login-form.jsp";
+            response.sendRedirect(redirectURL);
         } finally {
             out.close();
         }
@@ -80,13 +56,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -100,13 +70,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

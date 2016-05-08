@@ -5,6 +5,7 @@
     --%>
 
     <%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%@page import="model.User"%>
     <!DOCTYPE html>
     <html>
     <head>
@@ -19,32 +20,42 @@
          <div class="col-md-12">
             
             <div class="col-md-4 col-md-offset-4 login-form">
-
+                <%
+                    //message from RegisterController
+                if (session.getAttribute("messageSuccess") != null){
+                out.print("<div class=\"alert alert-success\">");
+                out.print(session.getAttribute("messageSuccess"));
+                out.print("</div>"); 
+                session.removeAttribute("messageSuccess");
+                }
+                //message from LoginController
+                if (session.getAttribute("loginFailed") != null){
+                out.print("<div class=\"alert alert-danger\">");
+                out.print(session.getAttribute("loginFailed"));
+                out.print("</div>"); 
+                session.removeAttribute("loginFailed");
+                }
+                %>
+                
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">Login Account <b>Threadizzy</b></h3>
                     </div>
                     <div class="panel-body">
-                        <%
-                        if (session.getAttribute("message") != null ) {
-                        %>
-                        <div class="alert alert-success">
-                            Registration Succes
-                        </div>
-
-                        <%
-                        session.removeAttribute("message"); }
-                        %>
-                        <form role="form" action="Login" method="post">
+                     
+                          
+                        <jsp:useBean id="user" scope="request" class="model.User"></jsp:useBean>
+                        
+                        <form role="form" action="LoginController" method="post">
 
                             <div class="form-group">
                                 <label for="email">Email:</label>
-                                <input required type="email" name="email" class="form-control" >
+                                <input required type="email" name="email" class="form-control" value="<jsp:getProperty name="user" property="email"/>">
                             </div>
 
                             <div class="form-group">
                                 <label for="pwd">Password:</label>
-                                <input required type="password" name="password" class="form-control" >
+                                <input required type="password" name="password" class="form-control" value="<jsp:getProperty name="user" property="password"/>">
                             </div>
 
 
