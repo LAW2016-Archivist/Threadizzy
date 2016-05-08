@@ -47,7 +47,7 @@
                         </center>
                     </div>
                     <div class="col-md-12" style="margin-top: 5%">
-                        <center><a><%out.print(logginUser.getName());%></a></center>
+                        <center><a><%out.print(logginUser.getNama());%></a></center>
                     </div>
                     <div class="col-md-12" style="margin-top: 5%">
 
