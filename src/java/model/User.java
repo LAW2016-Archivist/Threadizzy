@@ -5,7 +5,7 @@
  */
 package model;
 
-import database.DB;
+import database.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -81,7 +81,7 @@ public class User {
 
     public void RegisterUser() throws ClassNotFoundException {
         try {
-            Connection myconnection = DB.getConnection();
+            Connection myconnection = ConnectionFactory.getConnection();
             String query = "INSERT INTO user (name,image,email,password,gender) VALUES ('" + name + "','" + image + "','" + email + "','" + password + "','" + gender + "')";
             Statement myStatement = myconnection.createStatement();
 
@@ -100,7 +100,7 @@ public class User {
     public static boolean LoginUser(String user, String pwd) {
         boolean check = false;
         try {
-            Connection myconnection = DB.getConnection();
+            Connection myconnection = ConnectionFactory.getConnection();
 
             PreparedStatement ps1 = myconnection.prepareStatement("select * from user where email=? and password=?");
 
@@ -119,7 +119,7 @@ public class User {
 
     public static boolean checkEmail(String email) throws ClassNotFoundException, SQLException {
         boolean check = false;
-        Connection myconnection = DB.getConnection();
+        Connection myconnection = ConnectionFactory.getConnection();
         PreparedStatement ps1 = myconnection.prepareStatement("select * from user where email=?");
         ps1.setString(1, email);
         ResultSet rs1 = ps1.executeQuery();
@@ -131,7 +131,7 @@ public class User {
 
     public void GetUser() throws ClassNotFoundException {
         try {
-            Connection myconnection = DB.getConnection();
+            Connection myconnection = ConnectionFactory.getConnection();
             String sqlString = "SELECT * FROM user WHERE email = '" + email + "'";
             Statement myStatement = myconnection.createStatement();
             ResultSet rs = myStatement.executeQuery(sqlString);

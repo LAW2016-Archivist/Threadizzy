@@ -35,7 +35,7 @@ import org.eclipse.persistence.sessions.Session;
  * 
  * @author ismail.hassan        
  */
-@WebServlet(name = "CategoryController", urlPatterns = {"/dashboard/category"})
+@WebServlet(name = "CategoryController", urlPatterns = {"/CategoryController"})
 public class CategoryController extends HttpServlet {
 
     /**

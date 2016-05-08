@@ -36,7 +36,7 @@ public class CategoryTable {
         ResultSet rs = null;
         
         try {
-            conn = DB.getConnection();
+            conn = ConnectionFactory.getConnection();
             ps = conn.prepareStatement(query);
             ps.setInt(1, idUser);
             
@@ -66,7 +66,7 @@ public class CategoryTable {
         ResultSet rs = null;
         
         try {
-            conn = DB.getConnection();
+            conn = ConnectionFactory.getConnection();
             ps = conn.prepareStatement(query);
             
             ps.setInt(1, id);
@@ -94,7 +94,7 @@ public class CategoryTable {
         ResultSet rs = null;
         
         try {
-            conn = DB.getConnection();
+            conn = ConnectionFactory.getConnection();
             ps = conn.prepareStatement(query);
             
             ps.setInt(1, idUser);
@@ -121,7 +121,7 @@ public class CategoryTable {
         String query = "INSERT INTO category (id_user, nama) VALUE (?, ?)";
         
         try {
-            conn = DB.getConnection();
+            conn = ConnectionFactory.getConnection();
             ps = conn.prepareStatement(query);
             
             ps.setInt(1, category.getIdUser());
@@ -140,7 +140,7 @@ public class CategoryTable {
         String query = "UPDATE category SET nama=? where id=? AND id_user=?";
         
         try {
-            conn = DB.getConnection();
+            conn = ConnectionFactory.getConnection();
             ps = conn.prepareStatement(query);
             
             ps.setString(1, category.getNama());
@@ -158,7 +158,7 @@ public class CategoryTable {
     public void delete(Category category) throws SQLException {
         String query = "DELETE FROM category WHERE id=?";
         try {
-            conn = DB.getConnection();
+            conn = ConnectionFactory.getConnection();
             ps = conn.prepareStatement(query);
             
             ps.setInt(1, category.getId());

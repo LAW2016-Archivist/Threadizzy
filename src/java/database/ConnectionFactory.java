@@ -15,19 +15,19 @@ import java.util.logging.Logger;
  *
  * @author seryuzaki-woorld
  */
-public class DB {
+public class ConnectionFactory {
     
-    public static DB instance = new DB();
+    public static ConnectionFactory instance = new ConnectionFactory();
     public static final String URL = "jdbc:mysql://localhost/threadizzy";
     public static final String USER = "root";
     public static final String PASSWORD = "qwert12345";
     public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver"; 
     
-    private DB() {
+    private ConnectionFactory() {
         try { 
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -36,7 +36,7 @@ public class DB {
         try {
             conn = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException ex) {
-            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
         return conn;
             
