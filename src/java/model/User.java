@@ -6,6 +6,7 @@
 package model;
 
 import database.ConnectionFactory;
+import database.DB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -140,12 +141,13 @@ public class User {
             while (rs.next()) {
 
                 nama = rs.getString("nama");
-                image = rs.getString("image");
+                image = rs.getString("foto");
                 id = rs.getInt("id");
                 email = rs.getString("email");
                 password = rs.getString("password");
                 gender = rs.getString("gender");
             }
+            System.out.println("user id"+id);
             myStatement.close();
             myconnection.close();
 

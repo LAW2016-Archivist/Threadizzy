@@ -55,10 +55,10 @@ public class LoginController extends HttpServlet {
             us.GetUser();
             HttpSession session = request.getSession(true);
             session.setAttribute("user", us);
+            
             // tambahkan obyek user yang sedang log in ke session
             session.setAttribute("userObj", us);
             
-            // redirect ke halaman user-home
             String redirectURL = session.getAttribute("baseUrl") + "dashboard/user-home.jsp";
 //            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(redirectURL);
 //            dispatcher.forward(request, response);

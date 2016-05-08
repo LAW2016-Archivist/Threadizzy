@@ -49,17 +49,16 @@ public class CategoryController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         try {
             // action yang akan dilakukan ke kategori
             String action = request.getParameter("action");
-            String redirectURL = "/";
             
+            String redirectURL = "";
             User user = (User) request.getSession().getAttribute("userObj");
             
             // jika tidak ada user yang sedang login, redirect ke halaman utama
             if(user == null) {
-                response.sendRedirect("/Threadizzy");
+                response.sendRedirect(request.getContextPath());
                 return;
             }
             
@@ -70,7 +69,7 @@ public class CategoryController extends HttpServlet {
             
             if (request.getMethod().equalsIgnoreCase("POST")) {
                 // menambah category baru
-                if (action.equals("create")) {
+                if (action.equals("add")) {
                     ct.add(c);
                     ArrayList<Category> userCategory = (ArrayList)ct.getAllCategory(user.getId());
                     request.setAttribute("userCategory", userCategory);

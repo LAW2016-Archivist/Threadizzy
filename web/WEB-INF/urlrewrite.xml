@@ -3,7 +3,6 @@
         "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
 
 <!--
-
     Configuration file for UrlRewriteFilter
     http://www.tuckey.org/urlrewrite/
 
@@ -40,9 +39,15 @@
     </rule>
     <rule>
         <note>List atau add category</note>
-        <from>^/category/(list|add)$</from>
-        <to>/CategoryController?action=$1</to>
+        <from>^/category/add$</from>
+        <to>/CategoryController?action=add</to>
     </rule>
+    <rule>
+        <note>List atau add category</note>
+        <from>^/category/list$</from>
+        <to>/CategoryController?action=list</to>
+    </rule>
+    
     <rule>
         <note>edit atau delete category</note>
         <from>^/category/([0-9]+)/(edit|delete)$</from>
