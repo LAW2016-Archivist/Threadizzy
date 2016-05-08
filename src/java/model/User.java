@@ -5,7 +5,7 @@
  */
 package model;
 
-import database.DB;
+import database.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -81,9 +81,14 @@ public class User {
 
     public void RegisterUser() throws ClassNotFoundException {
         try {
+<<<<<<< HEAD
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();
             String query = "INSERT INTO user (nama,image,email,password,gender) VALUES ('" + nama + "','" + image + "','" + email + "','" + password + "','" + gender + "')";
+=======
+            Connection myconnection = ConnectionFactory.getConnection();
+            String query = "INSERT INTO user (name,image,email,password,gender) VALUES ('" + name + "','" + image + "','" + email + "','" + password + "','" + gender + "')";
+>>>>>>> ismail-devel
             Statement myStatement = myconnection.createStatement();
             
             try {
@@ -101,8 +106,7 @@ public class User {
     public static boolean LoginUser(String user, String pwd) {
         boolean check = false;
         try {
-            DB dbconn = new DB();
-            Connection myconnection = dbconn.Connection();
+            Connection myconnection = ConnectionFactory.getConnection();
 
             PreparedStatement ps1 = myconnection.prepareStatement("select * from user where email=? and password=?");
 
@@ -121,8 +125,7 @@ public class User {
 
     public static boolean checkEmail(String email) throws ClassNotFoundException, SQLException {
         boolean check = false;
-        DB dbconn = new DB();
-        Connection myconnection = dbconn.Connection();
+        Connection myconnection = ConnectionFactory.getConnection();
         PreparedStatement ps1 = myconnection.prepareStatement("select * from user where email=?");
         ps1.setString(1, email);
         ResultSet rs1 = ps1.executeQuery();
@@ -134,15 +137,20 @@ public class User {
 
     public void GetUser() throws ClassNotFoundException {
         try {
-            DB dbconn = new DB();
-            Connection myconnection = dbconn.Connection();
+            Connection myconnection = ConnectionFactory.getConnection();
             String sqlString = "SELECT * FROM user WHERE email = '" + email + "'";
             Statement myStatement = myconnection.createStatement();
             ResultSet rs = myStatement.executeQuery(sqlString);
             while (rs.next()) {
+<<<<<<< HEAD
 
                 nama = rs.getString("nama");
                 image = rs.getString("image");
+=======
+                id = rs.getInt("id");
+                name = rs.getString("nama");
+//                image = rs.getString("image");
+>>>>>>> ismail-devel
                 email = rs.getString("email");
                 password = rs.getString("password");
                 gender = rs.getString("gender");
@@ -153,7 +161,6 @@ public class User {
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
 }

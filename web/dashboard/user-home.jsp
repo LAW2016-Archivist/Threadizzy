@@ -10,12 +10,14 @@
                 response.sendRedirect(response.encodeRedirectURL(site));
             }
             
-            HttpSession sessionUser=request.getSession(false);  
-            String us=(String)sessionUser.getAttribute("user");
+            HttpSession sessionUser=request.getSession(false); 
+//            String us=(String)sessionUser.getAttribute("user");
             
-            User logginUser = new User();
-            logginUser.setEmail(us);
-            logginUser.GetUser();
+//            User logginUser = new User();
+//            logginUser.setEmail(us);
+//            logginUser.GetUser();
+            // ambil objek user dari session
+            User logginUser = (User) request.getSession().getAttribute("userObj");
         %>
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -53,7 +55,7 @@
 
                         <div class="list-group">
                             <a href="<% out.print(session.getAttribute("baseUrl")); %>dashboard/user/my-profile.jsp" class="list-group-item">
-                                My Profile
+                                My Profile <%= logginUser.getId() %>
                             </a>
                             <a href="<% out.print(session.getAttribute("baseUrl")); %>dashboard/user/edit-profile.jsp" class="list-group-item">
                                 Update Profile
