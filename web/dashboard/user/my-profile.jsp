@@ -33,7 +33,7 @@
             </tr>
             
             <tr>
-                <td>Foto</td>
+                <td>Image</td>
                 <td><%= viewedUser.getImage()%></td>
             </tr>
             <tr>
@@ -42,7 +42,10 @@
             </tr>
         </table>
         <% if (loggedUser != null && loggedUser.getId() != viewedUser.getId() ) { %> 
-        <a href ="<%= request.getContextPath()+"/profile/"+viewedUser.getId()+"/follow" %>">Follow</a>
+        <form action ="<%= request.getContextPath()+"/profile/"+viewedUser.getId()+"/follow" %>" method ="post"> 
+            <input type="submit" value="submit" >
+        </form>
         <% } %>
+        <a href="http://localhost:8080/Threadizzy/profile/1">user1</a>
     </body>
 </html>

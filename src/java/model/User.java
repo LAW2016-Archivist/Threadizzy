@@ -141,7 +141,7 @@ public class User {
             while (rs.next()) {
                 id = rs.getInt("id");
                 nama = rs.getString("nama");
-                image = rs.getString("foto");
+                image = rs.getString("image");
                 id = rs.getInt("id");
                 email = rs.getString("email");
                 password = rs.getString("password");

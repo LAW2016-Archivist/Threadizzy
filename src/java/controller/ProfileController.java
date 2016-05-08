@@ -36,80 +36,7 @@ public class ProfileController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-        try {
-            if (request.getMethod().equals("GET")) {
-                if (action.equals("view") && request.getParameter("id") != null) {
-                    // id profil yang dilihat
-                    int viewedId = Integer.parseInt(request.getParameter("id"));
-
-                    // user yang melihat
-                    User user = (User) request.getSession().getAttribute("userObj");
-
-                    if (user == null) {
-                        // view kalau user tidak login
-                        response.sendRedirect(request.getContextPath());
-                        return;
-                    }
-                    // view kalau user login
-                    UserTable ut = new UserTable();
-                    User viewedUser = ut.get(viewedId);
-                    request.setAttribute("viewedUser", viewedUser);
-                    String viewURL = "/dashboard/user/my-profile.jsp";
-                    request.getServletContext().getRequestDispatcher(viewURL).forward(request, response);
-
-                }
-
-                if (action.equals("edit")) {
-                    // get profile
-                    User user = (User) request.getSession().getAttribute("userObj");
-                    int viewedId = Integer.parseInt(request.getParameter("id"));
-                    // redirect to profile edit page
-                    
-                    UserTable ut = new UserTable();
-                    User editedUser = ut.get(viewedId);
-                    
-                    if (user == null || editedUser == null) {
-                        response.sendRedirect(request.getContextPath());
-                        return;
-                    }
-                    if (user.getId() != editedUser.getId()) {
-                        response.sendRedirect(request.getContextPath());
-                        return;
-                    }
-                    
-                    request.setAttribute("editedUser", editedUser);
-                    String viewURL = "/dashboard/user/edit-profile.jsp";
-                    request.getServletContext().getRequestDispatcher(viewURL).forward(request, response);
-                }
-
-            }
-            if (request.getMethod().equals("POST")) {
-                if (action.equals("edit")) {
-                    int editedId = Integer.parseInt(request.getParameter("id"));
-                    String editedName = request.getParameter("nama");
-                    String editedEmail = request.getParameter("email");
-                    String oldPassword = request.getParameter("oldPassword");
-                    String newPassword = request.getParameter("newPassword");
-                    String newPasswordAgain = request.getParameter("newPasswordAgain");
-                    String editedImage = request.getParameter("image");
-                    String editedGender = request.getParameter("gender");
-                    
-                    // TODO: check the confirmed password
-                    
-                    
-                    User editedUser = new User();
-                    editedUser.setId(editedId);
-                    editedUser.setNama(editedName);
-                    editedUser.setPassword(newPassword);
-                    editedUser.setEmail(editedEmail);
-                    editedUser.setImage(editedImage);
-                    editedUser.setGender(editedGender);
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -124,7 +51,61 @@ public class ProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String action = request.getParameter("action");
+
+        if (action.equals("view") && request.getParameter("id") != null) {
+            // id profil yang dilihat
+            int viewedId = Integer.parseInt(request.getParameter("id"));
+
+            // user yang melihat
+            User user = (User) request.getSession().getAttribute("userObj");
+
+            if (user == null) {
+                // view kalau user tidak login
+                response.sendRedirect(request.getContextPath());
+                return;
+            }
+            // view kalau user login
+            UserTable ut = new UserTable();
+            User viewedUser = null;
+            try {
+                viewedUser = ut.get(viewedId);
+            } catch (SQLException ex) {
+                Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            request.setAttribute("viewedUser", viewedUser);
+            String viewURL = "/dashboard/user/my-profile.jsp";
+            request.getServletContext().getRequestDispatcher(viewURL).forward(request, response);
+
+        }
+
+        if (action.equals("edit")) {
+            // get profile
+            User user = (User) request.getSession().getAttribute("userObj");
+            int viewedId = Integer.parseInt(request.getParameter("id"));
+            // redirect to profile edit page
+
+            UserTable ut = new UserTable();
+            User editedUser = null;
+                    try {
+                        editedUser = ut.get(viewedId);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+            if (user == null || editedUser == null) {
+                response.sendRedirect(request.getContextPath());
+                return;
+            }
+            if (user.getId() != editedUser.getId()) {
+                response.sendRedirect(request.getContextPath());
+                return;
+            }
+
+            request.setAttribute("editedUser", editedUser);
+            String viewURL = "/dashboard/user/edit-profile.jsp";
+            request.getServletContext().getRequestDispatcher(viewURL).forward(request, response);
+        }
     }
 
     /**
@@ -138,7 +119,28 @@ public class ProfileController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String action = request.getParameter("action");
+        if (action.equals("edit")) {
+            int editedId = Integer.parseInt(request.getParameter("id"));
+            String editedName = request.getParameter("nama");
+            String editedEmail = request.getParameter("email");
+            String oldPassword = request.getParameter("oldPassword");
+            String newPassword = request.getParameter("newPassword");
+            String newPasswordAgain = request.getParameter("newPasswordAgain");
+            String editedImage = request.getParameter("image");
+            String editedGender = request.getParameter("gender");
+
+            // TODO: check the confirmed password
+
+
+            User editedUser = new User();
+            editedUser.setId(editedId);
+            editedUser.setNama(editedName);
+            editedUser.setPassword(newPassword);
+            editedUser.setEmail(editedEmail);
+            editedUser.setImage(editedImage);
+            editedUser.setGender(editedGender);
+        }
     }
 
     /**
@@ -148,7 +150,7 @@ public class ProfileController extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Controller for viewing and editing profile";
     }// </editor-fold>
 
 }

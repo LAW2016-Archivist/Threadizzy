@@ -5,13 +5,19 @@
  */
 package controller;
 
+import database.UserFollowersTable;
+import database.UserTable;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.User;
 
 /**
  *
@@ -31,32 +37,6 @@ public class UserFollowController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-        
-        if (request.getMethod().equals("GET")) {
-            if (action.equals("following")) {
-                //get all the following
-                
-                // add to request
-                
-                // redirect using request dispatcher 
-            }
-            else if (action.equals("follower")) {
-                //get all the follower
-                
-                // add to request
-                
-                // redirect using request dispatcher
-            }
-        }
-        if (request.getMethod().equals("POST")) {
-            if (action.equals("follow")) {
-                // do the follow
-                
-            }
-        }
-        
-        
         
     }
 
@@ -72,7 +52,21 @@ public class UserFollowController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String action = request.getParameter("action");
+        if (action.equals("following")) {
+            //get all the following
+            
+            // add to request
+
+            // redirect using request dispatcher 
+        }
+        else if (action.equals("follower")) {
+            //get all the follower
+
+            // add to request
+
+            // redirect using request dispatcher
+        }
     }
 
     /**
@@ -86,7 +80,23 @@ public class UserFollowController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String action = request.getParameter("action");
+        if (action.equals("follow")) {
+            // do the follow
+//            response.getWriter().print("YEY");
+            int followedId = Integer.parseInt(request.getParameter("id"));
+            User user = (User) request.getSession().getAttribute("userObj");
+            UserTable ut = new UserTable();
+            UserFollowersTable uft = new UserFollowersTable();
+            
+            try {
+                uft.follow(user, ut.get(followedId));
+            } catch (SQLException ex) {
+                Logger.getLogger(UserFollowController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+//            response.getWriter().print("YEY");
+            response.sendRedirect(request.getContextPath()+"/profile/"+followedId);
+        }
     }
 
     /**
@@ -96,7 +106,7 @@ public class UserFollowController extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Controller for things about following or followers.";
     }// </editor-fold>
 
 }
