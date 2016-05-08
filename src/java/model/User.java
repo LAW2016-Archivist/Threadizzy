@@ -139,7 +139,7 @@ public class User {
             Statement myStatement = myconnection.createStatement();
             ResultSet rs = myStatement.executeQuery(sqlString);
             while (rs.next()) {
-
+                id = rs.getInt("id");
                 nama = rs.getString("nama");
                 image = rs.getString("foto");
                 id = rs.getInt("id");
