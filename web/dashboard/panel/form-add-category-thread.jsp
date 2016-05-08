@@ -28,7 +28,7 @@
                     <div class="panel-body">
                         <div class="col-md-12">
                           
-                            <form action="<%= session.getAttribute("baseUrl")+ "category?action=create" %>" method="post">
+                            <form action="<%= session.getAttribute("baseUrl")+ "dashboard/category?action=create" %>" method="post">
                                 <p>CATEGORY NAME :</p>
                                 <input type="text" name="judul" class="form-control" />
                                 <br>
@@ -50,7 +50,7 @@
                                     <% for (Category c : userCategory) { %>
                                     <tr>
                                         <td><%= c.getNama() %></td>
-                                        <td>"
+                                        <td>
                                             <a class="btn btn-danger" >
                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a> 
                                             <a class="btn btn-info" >

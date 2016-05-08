@@ -35,7 +35,7 @@ import org.eclipse.persistence.sessions.Session;
  * 
  * @author ismail.hassan        
  */
-@WebServlet(name = "CategoryController", urlPatterns = {"/category"})
+@WebServlet(name = "CategoryController", urlPatterns = {"/dashboard/category"})
 public class CategoryController extends HttpServlet {
 
     /**
@@ -51,10 +51,9 @@ public class CategoryController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            // apa yang akan dilakukan ke kategori
+            // action yang akan dilakukan ke kategori
             String action = request.getParameter("action");
             String redirectURL = "/";
-            
             
             User user = (User) request.getSession().getAttribute("userObj");
             
