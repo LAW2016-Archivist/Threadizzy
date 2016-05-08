@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package database;
 
 /**
  *
  * @author ismail.hassan
  */
-public class StatusController {
+public class UserTable {
     
 }
