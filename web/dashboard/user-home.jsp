@@ -25,6 +25,7 @@
     </head>
 
     <body class="">
+        
         <jsp:include page="/navbar.jsp" />
         <div class="container">
 
@@ -55,7 +56,7 @@
 
                         <div class="list-group">
                             <a href="<% out.print(session.getAttribute("baseUrl")); %>dashboard/user/my-profile.jsp" class="list-group-item">
-                                My Profile <%= logginUser.getId() %>
+                                My Profile 
                             </a>
                             <a href="<% out.print(session.getAttribute("baseUrl")); %>dashboard/user/edit-profile.jsp" class="list-group-item">
                                 Update Profile
@@ -82,6 +83,7 @@
                                     </div>
                                 </div>
                             </fieldset>
+                            <%= logginUser.getId() +" "+ logginUser.getNama() +" " + logginUser.getEmail() %>
                         </form>
                         <script>
                             function hitungkarakter(field, sisa, maksimal) {

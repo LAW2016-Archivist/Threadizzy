@@ -28,7 +28,7 @@
                     <div class="panel-body">
                         <div class="col-md-12">
                           
-                            <form action="<%= session.getAttribute("baseUrl")+ "dashboard/category?action=create" %>" method="post">
+                            <form action="<%= session.getAttribute("baseUrl")+ "category/add" %>" method="post">
                                 <p>CATEGORY NAME :</p>
                                 <input type="text" name="judul" class="form-control" />
                                 <br>
