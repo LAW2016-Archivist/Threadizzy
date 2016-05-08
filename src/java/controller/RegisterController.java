@@ -44,7 +44,7 @@ public class RegisterController extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             User user = new User();
-            user.setName(request.getParameter("name"));
+            user.setNama(request.getParameter("name"));
             user.setEmail(request.getParameter("email"));
             user.setGender(request.getParameter("gender"));
             user.setPassword(request.getParameter("password"));

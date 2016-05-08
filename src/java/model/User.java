@@ -20,23 +20,23 @@ import java.util.logging.Logger;
  */
 public class User {
 
-    private String name, image, email, password, gender ="";
+    private String nama, image, email, password, gender ="";
     private int id;
 
     public User() {
-        name = "";
+        nama = "";
         image = "";
         email = "";
         password = "";
         gender = "";
     }
 
-    public String getName() {
-        return name;
+    public String getNama() {
+        return nama;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
     public String getImage() {
@@ -83,9 +83,9 @@ public class User {
         try {
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();
-            String query = "INSERT INTO user (name,image,email,password,gender) VALUES ('" + name + "','" + image + "','" + email + "','" + password + "','" + gender + "')";
+            String query = "INSERT INTO user (nama,image,email,password,gender) VALUES ('" + nama + "','" + image + "','" + email + "','" + password + "','" + gender + "')";
             Statement myStatement = myconnection.createStatement();
-
+            
             try {
                 myStatement.executeUpdate(query);
                 myStatement.close();
@@ -141,7 +141,7 @@ public class User {
             ResultSet rs = myStatement.executeQuery(sqlString);
             while (rs.next()) {
 
-                name = rs.getString("name");
+                nama = rs.getString("nama");
                 image = rs.getString("image");
                 email = rs.getString("email");
                 password = rs.getString("password");

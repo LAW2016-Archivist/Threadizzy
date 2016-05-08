@@ -38,7 +38,7 @@
                                 <jsp:useBean id="user" scope="request" class="model.User"></jsp:useBean>
                                     <div class="form-group">
                                         <label for="name">Name:</label>
-                                        <input required type="text" name="name" class="form-control" value="<jsp:getProperty name="user" property="name"/>">
+                                        <input required type="text" name="name" class="form-control" value="<jsp:getProperty name="user" property="nama"/>">
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email:</label>
