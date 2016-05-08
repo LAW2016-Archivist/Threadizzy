@@ -81,14 +81,10 @@ public class User {
 
     public void RegisterUser() throws ClassNotFoundException {
         try {
-<<<<<<< HEAD
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();
             String query = "INSERT INTO user (nama,image,email,password,gender) VALUES ('" + nama + "','" + image + "','" + email + "','" + password + "','" + gender + "')";
-=======
-            Connection myconnection = ConnectionFactory.getConnection();
-            String query = "INSERT INTO user (name,image,email,password,gender) VALUES ('" + name + "','" + image + "','" + email + "','" + password + "','" + gender + "')";
->>>>>>> ismail-devel
+
             Statement myStatement = myconnection.createStatement();
             
             try {
@@ -142,15 +138,10 @@ public class User {
             Statement myStatement = myconnection.createStatement();
             ResultSet rs = myStatement.executeQuery(sqlString);
             while (rs.next()) {
-<<<<<<< HEAD
 
                 nama = rs.getString("nama");
                 image = rs.getString("image");
-=======
                 id = rs.getInt("id");
-                name = rs.getString("nama");
-//                image = rs.getString("image");
->>>>>>> ismail-devel
                 email = rs.getString("email");
                 password = rs.getString("password");
                 gender = rs.getString("gender");
