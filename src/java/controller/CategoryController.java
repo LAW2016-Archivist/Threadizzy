@@ -70,10 +70,14 @@ public class CategoryController extends HttpServlet {
             if (request.getMethod().equalsIgnoreCase("POST")) {
                 // menambah category baru
                 if (action.equals("add")) {
+                    
                     ct.add(c);
-                    ArrayList<Category> userCategory = (ArrayList)ct.getAllCategory(user.getId());
+                    
+                    ArrayList<Category> userCategory = (ArrayList) ct.getAllCategory(user.getId());
                     request.setAttribute("userCategory", userCategory);
-                    redirectURL = "/dashboard/panel/form-add-category-thread.jsp";
+                    
+                    String viewURL = "/dashboard/panel/form-add-category-thread.jsp";
+                    request.getServletContext().getRequestDispatcher(viewURL).forward(request, response);
                 }
                 
                 // mengubah category yang sudah ada
@@ -84,6 +88,8 @@ public class CategoryController extends HttpServlet {
                     ArrayList<Category> userCategory = (ArrayList)ct.getAllCategory(user.getId());
                     request.setAttribute("userCategory", userCategory);
                     redirectURL = "/dashboard/panel/form-add-category-thread.jsp";
+                    RequestDispatcher rd = request.getServletContext().getRequestDispatcher(redirectURL);
+                    rd.forward(request, response);
                 }
                 
                 // menghapus category yang sudah ada
@@ -94,6 +100,8 @@ public class CategoryController extends HttpServlet {
                     ArrayList<Category> userCategory = (ArrayList)ct.getAllCategory(user.getId());
                     request.setAttribute("userCategory", userCategory);
                     redirectURL = "/dashboard/panel/form-add-category-thread.jsp";
+                    RequestDispatcher rd = request.getServletContext().getRequestDispatcher(redirectURL);
+                    rd.forward(request, response);
                 }
             }
             
@@ -104,6 +112,8 @@ public class CategoryController extends HttpServlet {
                     request.setAttribute("userCategory", userCategory);
                     
                     redirectURL = "/dashboard/panel/form-add-category-thread.jsp";
+                    RequestDispatcher rd = request.getServletContext().getRequestDispatcher(redirectURL);
+                    rd.forward(request, response);
                 }
                 
                 if (action.equals("edit")) {
@@ -115,8 +125,7 @@ public class CategoryController extends HttpServlet {
                 }
                 
             }
-            RequestDispatcher rd = request.getServletContext().getRequestDispatcher(redirectURL);
-            rd.forward(request, response);
+            
             
         } catch (SQLException ex) {
             Logger.getLogger(CategoryController.class.getName()).log(Level.SEVERE, null, ex);

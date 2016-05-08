@@ -5,13 +5,18 @@
  */
 package controller;
 
+import database.UserTable;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.User;
 
 /**
  *
@@ -32,31 +37,78 @@ public class ProfileController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        
-        if (request.getMethod().equals("GET")) {
-            if (action.equals("view")) {
-                //get the profile
-                
-                // check if the id of profile i the id of users
-                
-                // add the data needed for the view to the request
-                
-                // redirect to profile view
+        try {
+            if (request.getMethod().equals("GET")) {
+                if (action.equals("view") && request.getParameter("id") != null) {
+                    // id profil yang dilihat
+                    int viewedId = Integer.parseInt(request.getParameter("id"));
+
+                    // user yang melihat
+                    User user = (User) request.getSession().getAttribute("userObj");
+
+                    if (user == null) {
+                        // view kalau user tidak login
+                        response.sendRedirect(request.getContextPath());
+                        return;
+                    }
+                    // view kalau user login
+                    UserTable ut = new UserTable();
+                    User viewedUser = ut.get(viewedId);
+                    request.setAttribute("viewedUser", viewedUser);
+                    String viewURL = "/dashboard/user/my-profile.jsp";
+                    request.getServletContext().getRequestDispatcher(viewURL).forward(request, response);
+
+                }
+
+                if (action.equals("edit")) {
+                    // get profile
+                    User user = (User) request.getSession().getAttribute("userObj");
+                    int viewedId = Integer.parseInt(request.getParameter("id"));
+                    // redirect to profile edit page
+                    
+                    UserTable ut = new UserTable();
+                    User editedUser = ut.get(viewedId);
+                    
+                    if (user == null || editedUser == null) {
+                        response.sendRedirect(request.getContextPath());
+                        return;
+                    }
+                    if (user.getId() != editedUser.getId()) {
+                        response.sendRedirect(request.getContextPath());
+                        return;
+                    }
+                    
+                    request.setAttribute("editedUser", editedUser);
+                    String viewURL = "/dashboard/user/edit-profile.jsp";
+                    request.getServletContext().getRequestDispatcher(viewURL).forward(request, response);
+                }
+
             }
-            
-            if (action.equals("edit")) {
-                // get profile
-                
-                // redirect to profile edit page
-                
+            if (request.getMethod().equals("POST")) {
+                if (action.equals("edit")) {
+                    int editedId = Integer.parseInt(request.getParameter("id"));
+                    String editedName = request.getParameter("nama");
+                    String editedEmail = request.getParameter("email");
+                    String oldPassword = request.getParameter("oldPassword");
+                    String newPassword = request.getParameter("newPassword");
+                    String newPasswordAgain = request.getParameter("newPasswordAgain");
+                    String editedImage = request.getParameter("image");
+                    String editedGender = request.getParameter("gender");
+                    
+                    // TODO: check the confirmed password
+                    
+                    
+                    User editedUser = new User();
+                    editedUser.setId(editedId);
+                    editedUser.setNama(editedName);
+                    editedUser.setPassword(newPassword);
+                    editedUser.setEmail(editedEmail);
+                    editedUser.setImage(editedImage);
+                    editedUser.setGender(editedGender);
+                }
             }
-            
-        }
-        if (request.getMethod().equals("POST")) {
-            if (action.equals("edit")) {
-                // do the edit
-                
-            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
