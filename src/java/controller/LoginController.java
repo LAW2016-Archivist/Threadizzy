@@ -5,16 +5,22 @@
  */
 package controller;
 
+import database.CategoryTable;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Category;
 import model.User;
 
 /**
@@ -48,9 +54,15 @@ public class LoginController extends HttpServlet {
             us.setEmail(String.valueOf(request.getParameter("email")));
             us.GetUser();
             HttpSession session = request.getSession(true);
-            session.setAttribute("user", us.getEmail());
-            String redirectURL = session.getAttribute("baseUrl") + "dashboard/user-home.jsp";
-            response.sendRedirect(redirectURL);
+//            session.setAttribute("user", us.getEmail());
+            // tambahkan obyek user yang sedang log in ke session
+            session.setAttribute("userObj", us);
+
+            
+            // redirect ke halaman user-home
+            String redirectURL = "/dashboard/user-home.jsp";
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(redirectURL);
+            dispatcher.forward(request, response);
         }else{
             HttpSession session = request.getSession(true);
             session.setAttribute("loginFailed", "Either email or password is incorrect!");

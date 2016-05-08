@@ -31,7 +31,7 @@ public class User {
         gender = "";
     }
 
-    public String getName() {
+    public String getNama() {
         return name;
     }
 
@@ -81,8 +81,7 @@ public class User {
 
     public void RegisterUser() throws ClassNotFoundException {
         try {
-            DB dbconn = new DB();
-            Connection myconnection = dbconn.Connection();
+            Connection myconnection = DB.getConnection();
             String query = "INSERT INTO user (name,image,email,password,gender) VALUES ('" + name + "','" + image + "','" + email + "','" + password + "','" + gender + "')";
             Statement myStatement = myconnection.createStatement();
 
@@ -101,8 +100,7 @@ public class User {
     public static boolean LoginUser(String user, String pwd) {
         boolean check = false;
         try {
-            DB dbconn = new DB();
-            Connection myconnection = dbconn.Connection();
+            Connection myconnection = DB.getConnection();
 
             PreparedStatement ps1 = myconnection.prepareStatement("select * from user where email=? and password=?");
 
@@ -121,8 +119,7 @@ public class User {
 
     public static boolean checkEmail(String email) throws ClassNotFoundException, SQLException {
         boolean check = false;
-        DB dbconn = new DB();
-        Connection myconnection = dbconn.Connection();
+        Connection myconnection = DB.getConnection();
         PreparedStatement ps1 = myconnection.prepareStatement("select * from user where email=?");
         ps1.setString(1, email);
         ResultSet rs1 = ps1.executeQuery();
@@ -134,15 +131,14 @@ public class User {
 
     public void GetUser() throws ClassNotFoundException {
         try {
-            DB dbconn = new DB();
-            Connection myconnection = dbconn.Connection();
+            Connection myconnection = DB.getConnection();
             String sqlString = "SELECT * FROM user WHERE email = '" + email + "'";
             Statement myStatement = myconnection.createStatement();
             ResultSet rs = myStatement.executeQuery(sqlString);
             while (rs.next()) {
-
-                name = rs.getString("name");
-                image = rs.getString("image");
+                id = rs.getInt("id");
+                name = rs.getString("nama");
+//                image = rs.getString("image");
                 email = rs.getString("email");
                 password = rs.getString("password");
                 gender = rs.getString("gender");
@@ -153,7 +149,6 @@ public class User {
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
 }
