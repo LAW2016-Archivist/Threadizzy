@@ -27,8 +27,7 @@
                                 HttpSession sessionUser=request.getSession(false);  
 
                                 User logginUser = (User) request.getSession().getAttribute("userObj");
-                                
-
+                                out.print(logginUser.getNama());
                                 String test = request.getParameter("id");
                                 Thread data = new Thread();
                                 data.setId(Integer.parseInt(test));

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers;
+package controller;
 
 import controller.*;
 import java.io.IOException;
@@ -58,7 +58,7 @@ public class ThreadController extends HttpServlet {
             String redirectURL = session.getAttribute("baseUrl") + "dashboard/panel/manage-thread.jsp";
             response.sendRedirect(redirectURL);
       
-       
+            
 
     }
 

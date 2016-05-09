@@ -43,10 +43,12 @@
                                         hidden />
                                 
                                 <p>JUDUL :</p>
-                                <input type="text" name="judul" class="form-control" />
+                                <input type="text" name="judul" class="form-control" required/>
                                 <br>
                                 <p>ISI :</p>
-                                <textarea name="isi"></textarea>
+                                <textarea name="isi" required>
+                             
+                                </textarea>
                                 
                               
                                  <br>

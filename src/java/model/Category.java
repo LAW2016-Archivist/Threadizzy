@@ -75,7 +75,7 @@ public class Category {
         try {
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();
-            String query = "INSERT INTO category (nama) VALUES ('" + nama + "')";
+            String query = "INSERT INTO category (nama, id_user) VALUES ('" + nama + "' , '" + idUser + "')";
             Statement myStatement = myconnection.createStatement();
 
             try {
@@ -131,6 +131,22 @@ public class Category {
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    public void DeleteCategory() throws ClassNotFoundException {
+        try {
+            DB dbconn = new DB();
+            Connection myconnection = dbconn.Connection();
+            String sqlString = "Delete  FROM category WHERE id='" + id + "'";
+            Statement myStatement = myconnection.createStatement();
+            myStatement.executeUpdate(sqlString);
+ 
 
+            myStatement.close();
+            myconnection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    
     }
 }
