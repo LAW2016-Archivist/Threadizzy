@@ -32,7 +32,7 @@
         <to>/test/status/</to>
     </outbound-rule>
     
-    <rule>
+<!--    <rule>
         <note>List semua category</note>
         <from>^/category$</from>
         <to>/CategoryController?action=list</to>
@@ -52,7 +52,7 @@
         <note>edit atau delete category</note>
         <from>^/category/([0-9]+)/(edit|delete)$</from>
         <to>/CategoryController?action=$2&amp;id=$1</to>
-    </rule>
+    </rule>-->
     
     <rule>
         <from>^/profile/([0-9]+)$</from>

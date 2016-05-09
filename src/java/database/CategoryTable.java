@@ -59,7 +59,7 @@ public class CategoryTable {
     }
     
     public Category get(int id) throws SQLException {
-        String query = "select * from "+Category.TABLE_NAME+" where id=?";
+        String query = "select * from "+TABLE_NAME+" where id=?";
         
         Category category = null;
         ResultSet rs = null;
@@ -87,7 +87,7 @@ public class CategoryTable {
     }
     
     public Category get(int idUser, String nama) throws SQLException {
-        String query = "select * from "+Category.TABLE_NAME+" where id_user=? AND nama=?";
+        String query = "select * from "+TABLE_NAME+" where id_user=? AND nama=?";
         
         Category category = null;
         ResultSet rs = null;

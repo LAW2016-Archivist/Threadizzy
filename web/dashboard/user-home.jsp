@@ -10,14 +10,11 @@
                 response.sendRedirect(response.encodeRedirectURL(site));
             }
             
-            HttpSession sessionUser=request.getSession(false); 
-//            String us=(String)sessionUser.getAttribute("user");
+            HttpSession sessionUser=request.getSession(false);  
+           User logginUser = (User) request.getSession().getAttribute("userObj");
             
-//            User logginUser = new User();
-//            logginUser.setEmail(us);
-//            logginUser.GetUser();
-            // ambil objek user dari session
-            User logginUser = (User) request.getSession().getAttribute("userObj");
+            
+            
         %>
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -25,7 +22,6 @@
     </head>
 
     <body class="">
-        
         <jsp:include page="/navbar.jsp" />
         <div class="container">
 
@@ -56,7 +52,7 @@
 
                         <div class="list-group">
                             <a href="<% out.print(session.getAttribute("baseUrl")); %>profile/<%= logginUser.getId() %>" class="list-group-item">
-                                My Profile 
+                                My Profile
                             </a>
                             <a href="<% out.print(session.getAttribute("baseUrl")); %>dashboard/user/edit-profile.jsp" class="list-group-item">
                                 Update Profile
@@ -72,18 +68,18 @@
                 <div class="col-md-6">
 
                     <div class="col-md-12 ">
-                        <form class=" form-horizontal">
+                        <form class=" form-horizontal" role="form" action="<% out.print(session.getAttribute("baseUrl")); %>StatusController" method="post">
                             <fieldset>
-                                <legend>What Do you Think ?</legend>
+                                <legend>What Do you Think ? </legend>
                                 <div class="form-group">
                                     <div class="col-md-12">
+                                        <input name="idUser" value = "<%out.print(logginUser.getId());%>" hidden>
                                         <textarea  name="status" class="form-control" maxlength="250" placeholder="Write here ..." onKeyUp="hitungkarakter(status, sisa, 250);"></textarea>
                                         <input style="background: #060606;border: 0; color: #cc0000" readonly disabled type="text" name="sisa" value="250" size="3"/>
                                         <button type="submit" class="btn btn-primary navbar-right" style="margin-top: 2%;margin-right: 2%;">Make Status</button>
                                     </div>
                                 </div>
                             </fieldset>
-                            <%= logginUser.getId() +" "+ logginUser.getNama() +" " + logginUser.getEmail() %>
                         </form>
                         <script>
                             function hitungkarakter(field, sisa, maksimal) {

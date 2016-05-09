@@ -18,14 +18,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Category;
+import model.Status;
 
 /**
  *
  * @author arrianda
  */
-@WebServlet(name = "CategoryController", urlPatterns = {"/CategoryController"})
-public class CategoryController extends HttpServlet {
+@WebServlet(name = "StatusController", urlPatterns = {"/StatusController"})
+public class StatusController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,14 +44,15 @@ public class CategoryController extends HttpServlet {
 
         PrintWriter out = response.getWriter();
  
-            Category category = new Category();
-            category.setNama(request.getParameter("nama"));
-
-            category.RegisterCategory();
-            HttpSession session = request.getSession(true);
-            session.setAttribute("categorySuccess", "Success Create Category");
-            String redirectURL = session.getAttribute("baseUrl") + "dashboard/panel/form-add-category-thread.jsp";
-            response.sendRedirect(redirectURL);
+            Status status = new Status();
+            status.setIsi(request.getParameter("status"));
+            status.setIdUser(Integer.parseInt(request.getParameter("idUser")));
+            
+                status.RegisterStatus();
+                HttpSession session = request.getSession(true);
+                session.setAttribute("statusSuccess", "Success Create Status");
+                String redirectURL = session.getAttribute("baseUrl") + "dashboard/user-home.jsp";
+                response.sendRedirect(redirectURL);
       
        
 

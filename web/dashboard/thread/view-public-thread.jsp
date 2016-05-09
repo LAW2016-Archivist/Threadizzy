@@ -3,7 +3,8 @@
     Created on : 24-Apr-2016, 14:17:48
     Author     : seryuzaki-woorld
 --%>
-
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Thread"%>
 <html>
     <head>
         <jsp:include page="/head.jsp" />
@@ -19,60 +20,29 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Public Thread</div>
                     <div class="panel-body">
-                        <div class="col-md-12">
-                            <div class="col-md-5">
-                                <h2><a>Title Thread</a></h2>
-                                <p>Created at xx:xx PM/AM On xx-xx-xx Post by name1</p>
-                                <p>xx Comment
-                                    xx Likers
-                                    xx Post        
-                                </p>
-                            </div>
-                        </div>
-                        <!--------------------------------------------------------------------------------------------------------------------------------------------------->
-                          <div class="col-md-12">
-                            <div class="col-md-5">
-                                <h2><a>Title Thread</a></h2>
-                                <p>Created at xx:xx PM/AM On xx-xx-xx Post by name1</p>
-                                <p>xx Comment
-                                    xx Likers
-                                    xx Post        
-                                </p>
-                            </div>
-                        </div>
-                        <!--------------------------------------------------------------------------------------------------------------------------------------------------->
-                          <div class="col-md-12">
-                            <div class="col-md-5">
-                                <h2><a>Title Thread</a></h2>
-                                <p>Created at xx:xx PM/AM On xx-xx-xx Post by name1</p>
-                                <p>xx Comment
-                                    xx Likers
-                                    xx Post        
-                                </p>
-                            </div>
-                        </div>
-                        <!--------------------------------------------------------------------------------------------------------------------------------------------------->
-                          <div class="col-md-12">
-                            <div class="col-md-5">
-                                <h2><a>Title Thread</a></h2>
-                                <p>Created at xx:xx PM/AM On xx-xx-xx Post by name1</p>
-                                <p>xx Comment
-                                    xx Likers
-                                    xx Post        
-                                </p>
-                            </div>
-                        </div>
-                        <!--------------------------------------------------------------------------------------------------------------------------------------------------->
-                          <div class="col-md-12">
-                            <div class="col-md-5">
-                                <h2><a>Title Thread</a></h2>
-                                <p>Created at xx:xx PM/AM On xx-xx-xx Post by name1</p>
-                                <p>xx Comment
-                                    xx Likers
-                                    xx Post        
-                                </p>
-                            </div>
-                        </div>
+                        
+                        <% 
+
+                                String test = request.getParameter("id");
+                                Thread data = new Thread();
+                                data.GetPublicThread();
+
+                                ArrayList<Integer> publicThread = data.getArrayId();
+                                
+                        for(int i = 0; i < publicThread.size(); i++) {
+                            Thread thd = new Thread();
+                            thd.setId(publicThread.get(i));
+                            thd.GetThread();
+                            
+                            
+                            out.println("<div class='col-md-12'><div class='col-md-5'><h2><a>");
+                            out.println(thd.getJudul());
+                            out.println("</a></h2><p>Post at");
+                            out.println(thd.getDatel());
+                            out.println("</p><p>xx Comment xx Likers xx Post</p> </div></div>");
+                        }
+                            %>  
+                        
                         <!--------------------------------------------------------------------------------------------------------------------------------------------------->
                        
                              <center>

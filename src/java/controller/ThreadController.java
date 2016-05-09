@@ -18,14 +18,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Category;
+import model.Thread;
 
 /**
  *
  * @author arrianda
  */
-@WebServlet(name = "CategoryController", urlPatterns = {"/CategoryController"})
-public class CategoryController extends HttpServlet {
+@WebServlet(name = "ThreadController", urlPatterns = {"/ThreadController"})
+public class ThreadController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,13 +44,18 @@ public class CategoryController extends HttpServlet {
 
         PrintWriter out = response.getWriter();
  
-            Category category = new Category();
-            category.setNama(request.getParameter("nama"));
+            Thread thread = new Thread();
+            
+            
+            thread.setIdUser(Integer.parseInt(request.getParameter("id_user")));
+            thread.setIdCategory(Integer.parseInt(request.getParameter("id_category")));
+            thread.setJudul(request.getParameter("judul"));
+            thread.setStatus(Integer.parseInt(request.getParameter("status")));
 
-            category.RegisterCategory();
+            thread.RegisterThread();
             HttpSession session = request.getSession(true);
-            session.setAttribute("categorySuccess", "Success Create Category");
-            String redirectURL = session.getAttribute("baseUrl") + "dashboard/panel/form-add-category-thread.jsp";
+            session.setAttribute("threadSuccess", "Success Create Thread");
+            String redirectURL = session.getAttribute("baseUrl") + "dashboard/panel/manage-thread.jsp";
             response.sendRedirect(redirectURL);
       
        

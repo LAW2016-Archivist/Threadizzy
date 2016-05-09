@@ -1,3 +1,8 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Post"%>
+<%@page import="model.Category"%>
+<%@page import="model.User"%>
+<%@page import="model.Thread"%>
 <html>
     <head>
         <jsp:include page="/head.jsp" />
@@ -17,13 +22,40 @@
                             <p>
                                 <img  height="120" width="120" class="img-circle" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"/>
                             </p>
-                            <p>by Name1</p>
-                            <p>category xxxx</p>
+                            <p>by 
+                            <% 
+                                HttpSession sessionUser=request.getSession(false);  
+                                String us=(String)sessionUser.getAttribute("user");
+
+                                User logginUser = new User();
+                                logginUser.setEmail(us);
+                                logginUser.GetUser();
+                                out.print(logginUser.getNama());
+                                
+
+                                String test = request.getParameter("id");
+                                Thread data = new Thread();
+                                data.setId(Integer.parseInt(test));
+
+                                data.GetThread();  
+                            %>    
+                                </p>
+                            <p>category 
+                            <% 
+                                
+                                Category category = new Category();
+                                category.setId(data.getIdCategory());
+                                category.GetCategory();
+                                out.print(category.getNama());
+                            %>
+                            </p>
 
                         </center>
                     </div>
+                            
+                    
                     <div class="col-md-9">
-                        <h1>Thread Title</h1>
+                        <h1><% out.print(data.getJudul()); %></h1>
                         <div class="col-md-12" style="text-align: right">
                             <a class="btn btn-info">Like</a>
                             <a class="btn btn-default">xx Likers</a>
@@ -35,71 +67,28 @@
                         <hr>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <h3>
-                        Title 1
-                    </h3>
-                    <hr>
-                    <p>
-                        Post at xx:xx On xx-xx-xx
-                    </p>
-                    <hr>
-                    <div class="content">
-                        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <h3>
-                        Title 1
-                    </h3>
-                    <hr>
-                    <p>
-                        Post at xx:xx On xx-xx-xx
-                    </p>
-                    <hr>
-                    <div class="content">
-                        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <h3>
-                        Title 1
-                    </h3>
-                    <hr>
-                    <p>
-                        Post at xx:xx On xx-xx-xx
-                    </p>
-                    <hr>
-                    <div class="content">
-                        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <h3>
-                        Title 1
-                    </h3>
-                    <hr>
-                    <p>
-                        Post at xx:xx On xx-xx-xx
-                    </p>
-                    <hr>
-                    <div class="content">
-                        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <h3>
-                        Title 1
-                    </h3>
-                    <hr>
-                    <p>
-                        Post at xx:xx On xx-xx-xx
-                    </p>
-                    <hr>
-                    <div class="content">
-                        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-                    </div>
-                </div>
+                            
+                <%
+                        Post post = new Post();
+                        post.setIdUser(logginUser.getId());
+                        post.setIdThread(data.getId());
+                        post.GetUserPost();
+                        
+                        ArrayList<Integer> postList = post.getArrayId();
+                        for(int i = 0; i < postList.size(); i++) {
+                            Post pst = new Post();
+                            pst.setId(postList.get(i));
+                            pst.GetPost();
+                            
+                            out.println(" <div class='col-md-12'><h3>");
+                            out.println(pst.getJudul());
+                            out.println("</h3><hr><p>Post at");
+                            out.println(pst.getDatel());
+                            out.println(" </p><hr><div class='content'></div></div>");
+                            
+                        }
+                %>
+                
 
                 <center>
                     <ul class="pagination pagination-sm">
