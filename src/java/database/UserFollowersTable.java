@@ -18,10 +18,10 @@ import model.User;
  * @author ismail.hassan
  */
 public class UserFollowersTable {
-    private Connection conn;
-    private PreparedStatement ps;
+    private static Connection conn;
+    private static PreparedStatement ps;
     
-    public ArrayList<User> getAllFollowers(int idUser) throws SQLException {
+    public static ArrayList<User> getAllFollowers(int idUser) throws SQLException {
         String query = "SELECT * FROM user_followers WHERE id_user=?";
         List<User> list = new ArrayList<User>();
         
@@ -52,7 +52,7 @@ public class UserFollowersTable {
         return (ArrayList<User>) list;
     }
     
-    public ArrayList<User> getAllFollowing(int idUser) throws SQLException {
+    public static ArrayList<User> getAllFollowing(int idUser) throws SQLException {
         String query = "SELECT * FROM user_followers WHERE id_followers=?";
         List<User> list = new ArrayList<User>();
         
@@ -85,7 +85,7 @@ public class UserFollowersTable {
     
     // user1 follow user2
     // user2 memiliki follower user1
-    public void follow(User user1, User user2) throws SQLException {
+    public static void follow(User user1, User user2) throws SQLException {
         String query = "INSERT INTO user_followers (id_user, id_followers) VALUES (?, ?)";
         try {
             conn = ConnectionFactory.getConnection();
@@ -100,6 +100,29 @@ public class UserFollowersTable {
         }
     }
     
-    
+    public static boolean isFollowing(User user1, User user2) throws SQLException {
+        String query = "SELECT * FROM user_followers WHERE id_user=? AND id_followers=?";
+        boolean isFollowing = false;
+        
+        ResultSet rs = null;
+        
+        try {
+            conn = ConnectionFactory.getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, user2.getId());
+            ps.setInt(2, user1.getId());
+            
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                isFollowing = true;
+            }
+        } 
+        finally {
+            if (rs != null) { rs.close(); }
+            if (ps != null) { ps.close(); }
+            if (conn != null) { conn.close(); }
+        }
+        return isFollowing;
+    }
     
 }

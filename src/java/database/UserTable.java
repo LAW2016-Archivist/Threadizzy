@@ -16,10 +16,10 @@ import model.User;
  * @author ismail.hassan
  */
 public class UserTable {
-    private Connection conn;
-    private PreparedStatement ps;
+    private static Connection conn;
+    private static PreparedStatement ps;
     
-    public User get(int id) throws SQLException {
+    public static User get(int id) throws SQLException {
         String query = "select * from user where id=?";
         
         User user = new User();
@@ -51,7 +51,7 @@ public class UserTable {
         return user;
     }
     
-    public void add(User user) throws SQLException {
+    public static void add(User user) throws SQLException {
         String query = "INSERT INTO user (nama,image,email,password,gender) VALUES (?,?,?,?,?)";
         try {
             conn = ConnectionFactory.getConnection();
@@ -71,7 +71,7 @@ public class UserTable {
         }
     }
     
-    public void update(User user) throws SQLException {
+    public static void update(User user) throws SQLException {
         String query = "UPDATE user set nama=?,image=?,email=?,password=?,gender=? WHERE id=?";
         try {
             conn = ConnectionFactory.getConnection();

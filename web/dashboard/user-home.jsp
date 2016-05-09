@@ -55,7 +55,7 @@
                     <div class="col-md-12" style="margin-top: 5%">
 
                         <div class="list-group">
-                            <a href="<% out.print(session.getAttribute("baseUrl")); %>profile/<%= logginUser.getId() %>" class="list-group-item">
+                            <a href="<%= request.getContextPath() +"/profile/"+ logginUser.getId() %>" class="list-group-item">
                                 My Profile 
                             </a>
                             <a href="<% out.print(session.getAttribute("baseUrl")); %>dashboard/user/edit-profile.jsp" class="list-group-item">

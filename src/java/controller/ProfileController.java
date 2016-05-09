@@ -5,6 +5,7 @@
  */
 package controller;
 
+import database.UserFollowersTable;
 import database.UserTable;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -73,8 +74,30 @@ public class ProfileController extends HttpServlet {
             } catch (SQLException ex) {
                 Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            //cek apakah yang dilihat itu profile sendiri atau orang lain
+            String viewURL = "";
             request.setAttribute("viewedUser", viewedUser);
-            String viewURL = "/dashboard/user/my-profile.jsp";
+            // kalau lihat diri sendiri
+            if (user.getId() == viewedUser.getId()) {
+                 viewURL = "/dashboard/user/my-profile.jsp";
+            }
+            
+            else {
+                try {
+                    // kalau lihat orang lain
+                    if (UserFollowersTable.isFollowing(user, viewedUser)) {
+                        viewURL = "/dashboard/user/view-other-user-profile-follow.jsp";
+                    }
+                    else {
+                        viewURL = "/dashboard/user/view-other-user-profile-unfollow.jsp";
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+            
             request.getServletContext().getRequestDispatcher(viewURL).forward(request, response);
 
         }
@@ -120,6 +143,10 @@ public class ProfileController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
+        
+        // Action       POST	/profile/{id}/edit 			
+        // Mapped to    ProfileController?action=edit&id={id} 									
+        // Go to        /profile
         if (action.equals("edit")) {
             int editedId = Integer.parseInt(request.getParameter("id"));
             String editedName = request.getParameter("nama");
@@ -131,8 +158,6 @@ public class ProfileController extends HttpServlet {
             String editedGender = request.getParameter("gender");
 
             // TODO: check the confirmed password
-
-
             User editedUser = new User();
             editedUser.setId(editedId);
             editedUser.setNama(editedName);
@@ -140,6 +165,14 @@ public class ProfileController extends HttpServlet {
             editedUser.setEmail(editedEmail);
             editedUser.setImage(editedImage);
             editedUser.setGender(editedGender);
+            
+            try {
+                UserTable.update(editedUser);
+            } catch (SQLException ex) {
+                Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            response.sendRedirect(request.getContextPath()+"/profile");
         }
     }
 
