@@ -11,27 +11,64 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 /**
  *
  * @author Arrianda
  */
-public class Category {
+public class Post {
+    private String judul,isi  ="";
+    private int id, id_thread, id_user;
+    private ArrayList<Integer> arrayId = new ArrayList();
+    private Timestamp datel;
 
-    private String nama = "";
-    private int id;
-    private int idUser;
-    private ArrayList<String> arrayNama;
-    private ArrayList<Integer> arrayId;
-
-    public Category() {
-        nama = "";
-
+    public Post() {
+        judul = "";
+    
     }
 
+    public int getIdUser() {
+        return id_user;
+    }
+
+    public void setIdUser(int id_user) {
+        this.id_user = id_user;
+    }
+    
+     public int getIdThread() {
+        return id_thread;
+    }
+
+    public void setIdThread(int id_thread) {
+        this.id_thread = id_thread;
+    }
+    
+    public String getJudul() {
+        return judul;
+    }
+
+    public void setJudul(String judul) {
+        this.judul = judul;
+    }
+        
+    public String getIsi() {
+        return isi;
+    }
+
+    public void setIsi(String status) {
+        this.isi = isi;
+    }
+    
+    public Timestamp getDatel() {
+        return datel;
+    }
+
+    public void setDatel(Timestamp datel) {
+        this.datel = datel;
+    }
     public int getId() {
         return id;
     }
@@ -39,30 +76,6 @@ public class Category {
     public void setId(int id) {
         this.id = id;
     }
-
-    public String getNama() {
-        return nama;
-    }
-
-    public void setNama(String nama) {
-        this.nama = nama;
-    }
-
-    public int getIdUser() {
-        return idUser;
-    }
-     public void setIdUser(int idUser) {
-        this.idUser = idUser;
-     }
-
-    public ArrayList<String> getArrayNama() {
-        return arrayNama;
-    }
-
-    public void setArrayNama(ArrayList<String> arrayNama) {
-        this.arrayNama = arrayNama;
-    }
-
     public ArrayList<Integer> getArrayId() {
         return arrayId;
     }
@@ -70,14 +83,13 @@ public class Category {
     public void setArrayId(ArrayList<Integer> arrayId) {
         this.arrayId = arrayId;
     }
-
-    public void RegisterCategory() throws ClassNotFoundException {
+     public void RegisterPost() throws ClassNotFoundException {
         try {
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();
-            String query = "INSERT INTO category (nama) VALUES ('" + nama + "')";
+            String query = "INSERT INTO post (id_user, id_thread, judul, isi) VALUES ('" + id_user + "','" + id_thread + "','" + judul + "','" + isi + "')";
             Statement myStatement = myconnection.createStatement();
-
+            
             try {
                 myStatement.executeUpdate(query);
                 myStatement.close();
@@ -89,48 +101,43 @@ public class Category {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    public void GetAllCategory() throws ClassNotFoundException {
+     
+    public void GetUserPost() throws ClassNotFoundException {
         try {
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();
-            String sqlString = "SELECT * FROM category";
+            String sqlString = "SELECT * FROM post WHERE (id_user='"+ id_user+"'AND id_thread='"+id_thread+"')";
             Statement myStatement = myconnection.createStatement();
             ResultSet rs = myStatement.executeQuery(sqlString);
-            ArrayList<String> namaCategory = new ArrayList();
-            ArrayList<Integer> idCategory = new ArrayList();
-            int id = 1;
+            ArrayList<Integer> idPost = new ArrayList();
             while (rs.next()) {
-                namaCategory.add(rs.getString("nama"));
-                idCategory.add(id);
-                id++;
+                idPost.add(rs.getInt("id"));
             }
-            this.arrayId = idCategory;
-            this.arrayNama = namaCategory;
+            this.arrayId = idPost;
             myStatement.close();
             myconnection.close();
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
-
-    public void GetCategory() throws ClassNotFoundException {
+     public void GetPost() throws ClassNotFoundException {
         try {
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();
-            String sqlString = "SELECT * FROM category WHERE id='" + id + "'";
+            String sqlString = "SELECT * FROM post WHERE id='"+ id+"'";
             Statement myStatement = myconnection.createStatement();
             ResultSet rs = myStatement.executeQuery(sqlString);
             while (rs.next()) {
-                this.nama = rs.getString("nama");
+                this.id_thread=rs.getInt("id_thread");
+                this.id_user=rs.getInt("id_user");
+                this.judul=rs.getString("judul");
+                this.isi=rs.getString("isi");
+                this.datel = rs.getTimestamp("datel");
             }
-
             myStatement.close();
             myconnection.close();
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 }

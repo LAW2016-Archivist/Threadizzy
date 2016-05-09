@@ -4,8 +4,9 @@
     Author     : seryuzaki-woorld
 --%>
 
+<%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="java.sql.ResultSet"%>
 <%@page import="model.Category"%>
 <html>
     <head>
@@ -16,24 +17,29 @@
 
     <body class="">
         <jsp:include page="/navbar.jsp" />
-        <%
-            ArrayList<Category> userCategory = (ArrayList<Category>)request.getAttribute("userCategory");
-//            out.write(userCategory.size());
-        %>
         <div class="container">
             <br><br><br><br><br>
             <div class="col-md-6 col-md-offset-3 " >
                 <div class="panel panel-default">
                     <div class="panel-heading">Make Category Thread</div>
                     <div class="panel-body">
+                         <%
+                    //message from RegisterController
+                if (session.getAttribute("categorySuccess") != null){
+                out.print("<div class=\"alert alert-success\">");
+                out.print(session.getAttribute("categorySuccess"));
+                out.print("</div>"); 
+                session.removeAttribute("categorySuccess");
+                }
+                %>
                         <div class="col-md-12">
                           
-                            <form action="<%= session.getAttribute("baseUrl")+ "category/add" %>" method="post">
+                            <form role="form" action="<% out.print(session.getAttribute("baseUrl")); %>CategoryController" method="post">
                                 <p>CATEGORY NAME :</p>
-                                <input type="text" name="judul" class="form-control" />
+                                <input type="text" name="nama" class="form-control" />
                                 <br>
 
-                                <input type="submit" class="btn btn-primary form-control" value="Create"/>
+                                <button type="submit" class="btn btn-primary form-control">Submit</button>
                             </form>
                         </div>
                         <div>
@@ -45,22 +51,25 @@
                                         
                                     </tr>
                                 </thead>
-                                
+                              
                                 <tbody>
-                                    <% for (Category c : userCategory) { %>
-                                    <tr>
-                                        <td><%= c.getNama() %></td>
-                                        <td>
-                                            <a class="btn btn-danger" >
-                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a> 
-                                            <a class="btn btn-info" >
-                                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-                                        </td>
-                                       
-                                    </tr>
+                                    <% 
+                                        Category category = new Category();
+                                        category.GetAllCategory();
+                                        ArrayList<String> namaCategory = category.getArrayNama();
+                                        Iterator it = namaCategory.listIterator();
+                                        while (it.hasNext()) {
+                                            out.print("<tr>");
+                                            out.print("<td>");
+                                            out.print(it.next());
+                                            out.print("</td>");
+                                            out.print("<td>");
+                                            out.print("<a class='btn btn-danger'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a> <a class='btn btn-info'><span class='glyphicon glyphicon-cog' aria-hidden='true'></span></a>");
+                                            out.print("</td>");
+                                            out.print("</tr>");
+                                        }
+                                    %>
                                     
-
-                                    <% } %>
                                 </tbody> 
                             </table>
                         </div>

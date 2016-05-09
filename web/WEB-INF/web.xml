@@ -12,7 +12,7 @@
     </filter-mapping>
     <session-config>
         <session-timeout>
-            60
+            1800
         </session-timeout>
     </session-config>
 </web-app>

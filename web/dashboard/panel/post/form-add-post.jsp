@@ -4,6 +4,7 @@
     Author     : seryuzaki-woorld
 --%>
 
+<%@page import="model.User"%>
 <html>
     <head>
         <jsp:include page="/head.jsp" />
@@ -22,16 +23,34 @@
                         <div class="col-md-12">
                             <script src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
                             <script>tinymce.init({selector: 'textarea', plugins : 'advlist autolink link media image lists charmap'});</script>
-                            <form>
+                            <form role="form" action="<% out.print(session.getAttribute("baseUrl")); %>PostController" method="post">
+                                <input type="text" name="id_user" value=                             
+                                <%
+                                HttpSession sessionUser=request.getSession(false);  
+                                User logginUser = (User) request.getSession().getAttribute("userObj");
+                                out.print("'"+logginUser.getId()+"'");
+                                %>
+                                 hidden/>
+                                <input type="text" name="id_thread" value= 
+                                <%
+                                    
+                                String test = request.getParameter("id");
+                                out.print("'"+test +"'");
+                                    
+                                           
+                                %>
+                                       
+                                        hidden />
+                                
                                 <p>JUDUL :</p>
                                 <input type="text" name="judul" class="form-control" />
                                 <br>
-                                <p>CATEGORY :</p>
+                                <p>ISI :</p>
                                 <textarea name="isi"></textarea>
-                               
+                                
                               
                                  <br>
-                                <input type="sumbit" class="btn btn-primary form-control" value="ADD"/>
+                                 <button type="sumbit" class="btn btn-primary form-control">Submit</button>
                             </form>
                         </div>
                     </div>

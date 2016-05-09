@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  */
 public class User {
 
-    private String nama, image, email, password, gender ="";
+    private String nama, image, email, password, gender = "";
     private int id;
 
     public User() {
@@ -87,7 +87,7 @@ public class User {
             String query = "INSERT INTO user (nama,image,email,password,gender) VALUES ('" + nama + "','" + image + "','" + email + "','" + password + "','" + gender + "')";
 
             Statement myStatement = myconnection.createStatement();
-            
+
             try {
                 myStatement.executeUpdate(query);
                 myStatement.close();
@@ -122,14 +122,17 @@ public class User {
 
     public static boolean checkEmail(String email) throws ClassNotFoundException, SQLException {
         boolean check = false;
-        Connection myconnection = ConnectionFactory.getConnection();
-        PreparedStatement ps1 = myconnection.prepareStatement("select * from user where email=?");
-        ps1.setString(1, email);
-        ResultSet rs1 = ps1.executeQuery();
-        check = rs1.next();
-        myconnection.close();
+        try {
+            Connection myconnection = ConnectionFactory.getConnection();
+            PreparedStatement ps1 = myconnection.prepareStatement("select * from user where email=?");
+            ps1.setString(1, email);
+            ResultSet rs1 = ps1.executeQuery();
+            check = rs1.next();
+            myconnection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return check;
-
     }
 
     public void GetUser() throws ClassNotFoundException {
@@ -147,7 +150,7 @@ public class User {
                 password = rs.getString("password");
                 gender = rs.getString("gender");
             }
-            System.out.println("user id"+id);
+            System.out.println("user id" + id);
             myStatement.close();
             myconnection.close();
 
