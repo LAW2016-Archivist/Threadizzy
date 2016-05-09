@@ -39,7 +39,6 @@ public class CategoryTable {
             conn = ConnectionFactory.getConnection();
             ps = conn.prepareStatement(query);
             ps.setInt(1, idUser);
-            
             rs = ps.executeQuery();
             
             while (rs.next()) {

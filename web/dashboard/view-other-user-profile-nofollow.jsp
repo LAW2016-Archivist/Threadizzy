@@ -6,7 +6,7 @@
 
 <html>
     <head>
-        <jsp:include page="head.jsp" />
+        <jsp:include page="/head.jsp" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>NAME1</title>
     </head>

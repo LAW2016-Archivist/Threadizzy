@@ -48,15 +48,12 @@ public class RegisterController extends HttpServlet {
             user.setEmail(request.getParameter("email"));
             user.setGender(request.getParameter("gender"));
             user.setPassword(request.getParameter("password"));
-            if (User.checkEmail(user.getEmail())) {
-
+            if (user.checkEmail(user.getEmail())) {
                 HttpSession session = request.getSession(true);
                 session.setAttribute("messageEmail", "Email Has Already Taken");
                 String redirectURL = session.getAttribute("baseUrl") + "register/";
                 response.sendRedirect(redirectURL);
-
             } else {
-
                 user.RegisterUser();
                 HttpSession session = request.getSession(true);
                 session.setAttribute("messageSuccess", "Success Create Account");
