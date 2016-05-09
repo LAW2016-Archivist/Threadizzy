@@ -5,10 +5,21 @@
  */
 package database;
 
+import model.Status;
+
 /**
  *
  * @author ismail.hassan
  */
 public class StatusTable {
+    public static void add(Status status) {
+        
+    }
     
+    public static void update(Status status) {
+        
+    }
+    public static void delete(Status status) {
+        
+    }
 }

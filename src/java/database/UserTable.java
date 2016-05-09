@@ -72,7 +72,7 @@ public class UserTable {
     }
     
     public static void update(User user) throws SQLException {
-        String query = "UPDATE user set nama=?,image=?,email=?,password=?,gender=? WHERE id=?";
+        String query = "UPDATE user SET nama=?,image=?,email=?,password=?,gender=? WHERE id=?";
         try {
             conn = ConnectionFactory.getConnection();
             ps = conn.prepareStatement(query);

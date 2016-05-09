@@ -52,7 +52,7 @@
                                 </div>
 
                             
-                            <input type="sumbit" class="btn btn-primary form-control" value="SAVE"/>
+                            <input type="submit" class="btn btn-primary form-control" value="SAVE"/>
                         </form>
                     </div>
                 </div>

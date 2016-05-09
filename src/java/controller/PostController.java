@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers;
+package controller;
 
 import controller.*;
 import java.io.IOException;
@@ -51,12 +51,12 @@ public class PostController extends HttpServlet {
             post.setIdThread(Integer.parseInt(request.getParameter("id_thread")));
             post.setJudul(request.getParameter("judul"));
             post.setIsi(request.getParameter("isi"));
-
+            out.write(post.getIsi());
             post.RegisterPost();
             HttpSession session = request.getSession(true);
             session.setAttribute("postSuccess", "Success Create Post");
             String redirectURL = session.getAttribute("baseUrl") + "dashboard/thread/view-thread.jsp?id="+Integer.parseInt(request.getParameter("id_thread"));
-            response.sendRedirect(redirectURL);
+//            response.sendRedirect(redirectURL);
       
        
 

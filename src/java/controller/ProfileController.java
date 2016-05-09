@@ -87,10 +87,10 @@ public class ProfileController extends HttpServlet {
                 try {
                     // kalau lihat orang lain
                     if (UserFollowersTable.isFollowing(user, viewedUser)) {
-                        viewURL = "/dashboard/user/view-other-user-profile-follow.jsp";
+                        viewURL = "/dashboard/view-other-user-profile-follow.jsp";
                     }
                     else {
-                        viewURL = "/dashboard/user/view-other-user-profile-unfollow.jsp";
+                        viewURL = "/dashboard/view-other-user-profile-unfollow.jsp";
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
@@ -152,7 +152,7 @@ public class ProfileController extends HttpServlet {
             String editedName = request.getParameter("nama");
             String editedEmail = request.getParameter("email");
             String oldPassword = request.getParameter("oldPassword");
-            String newPassword = request.getParameter("newPassword");
+            String newPassword = request.getParameter("password");
             String newPasswordAgain = request.getParameter("newPasswordAgain");
             String editedImage = request.getParameter("image");
             String editedGender = request.getParameter("gender");
@@ -163,7 +163,7 @@ public class ProfileController extends HttpServlet {
             editedUser.setNama(editedName);
             editedUser.setPassword(newPassword);
             editedUser.setEmail(editedEmail);
-            editedUser.setImage(editedImage);
+            editedUser.setImage(editedImage+"");
             editedUser.setGender(editedGender);
             
             try {
@@ -172,7 +172,7 @@ public class ProfileController extends HttpServlet {
                 Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            response.sendRedirect(request.getContextPath()+"/profile");
+            response.sendRedirect(request.getContextPath()+"/profile/"+editedUser.getId());
         }
     }
 

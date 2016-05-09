@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers;
+package controller;
 
 import controller.*;
 import java.io.IOException;
@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Status;
+import model.User;
 
 /**
  *
@@ -42,19 +43,38 @@ public class StatusController extends HttpServlet {
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
 
-        PrintWriter out = response.getWriter();
- 
-            Status status = new Status();
-            status.setIsi(request.getParameter("status"));
-            status.setIdUser(Integer.parseInt(request.getParameter("idUser")));
-            
-                status.RegisterStatus();
-                HttpSession session = request.getSession(true);
-                session.setAttribute("statusSuccess", "Success Create Status");
-                String redirectURL = session.getAttribute("baseUrl") + "dashboard/user-home.jsp";
-                response.sendRedirect(redirectURL);
-      
-       
+//        PrintWriter out = response.getWriter();
+// 
+//            Status status = new Status();
+//            status.setIsi(request.getParameter("status"));
+//            status.setIdUser(Integer.parseInt(request.getParameter("idUser")));
+//            
+//                status.RegisterStatus();
+//                HttpSession session = request.getSession(true);
+//                session.setAttribute("statusSuccess", "Success Create Status");
+//                String redirectURL = session.getAttribute("baseUrl") + "dashboard/user-home.jsp";
+//                response.sendRedirect(redirectURL);
+//      
+       User user = (User) request.getSession().getAttribute("userObj");
+       if (user == null) {
+           response.sendRedirect(request.getContextPath());
+       }
+       String action = request.getParameter("action");
+       if (action.equals("create")) {
+           
+       }
+       if (action.equals("store")) {
+           
+       }
+       if (action.equals("edit")) {
+           
+       }
+       if (action.equals("update")) {
+           
+       }
+       if (action.equals("delete")) {
+           
+       }
 
     }
 
