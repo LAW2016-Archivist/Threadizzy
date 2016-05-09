@@ -25,11 +25,7 @@
                             <p>by 
                             <% 
                                 HttpSession sessionUser=request.getSession(false);  
-                                String us=(String)sessionUser.getAttribute("user");
-
-                                User logginUser = new User();
-                                logginUser.setEmail(us);
-                                logginUser.GetUser();
+                                     User logginUser = (User) request.getSession().getAttribute("userObj");
                                 out.print(logginUser.getNama());
                                 
 

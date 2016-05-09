@@ -140,6 +140,8 @@ public class ProfileController extends HttpServlet {
             editedUser.setEmail(editedEmail);
             editedUser.setImage(editedImage);
             editedUser.setGender(editedGender);
+            
+            
         }
     }
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers;
+package controller;
 
 import controller.*;
 import java.io.IOException;
@@ -43,7 +43,12 @@ public class PostController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         PrintWriter out = response.getWriter();
- 
+        if(request.getParameter("isi").length() == 0){
+            HttpSession session = request.getSession(true);
+            session.setAttribute("postSuccess", "Success Create Post");
+            String redirectURL = session.getAttribute("baseUrl") + "dashboard/";
+            response.sendRedirect(redirectURL);
+        }
             Post post = new Post();
             
             

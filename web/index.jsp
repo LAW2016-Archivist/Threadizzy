@@ -4,6 +4,8 @@
     Author     : saufi
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Thread"%>
 
 <html>
     <head>
@@ -18,34 +20,29 @@
                     <div class="panel-heading"><h4>Popular Public Thread Today</h4></div>
                     <div class="panel-body">
                         <div class="list-group">
-                            <a href="#" class="list-group-item">
-                                <h4 class="list-group-item-heading">Title Thread</h4>
-                                <p class="list-group-item-text">xx Likes xx:xx PM/AM On xx-xx-xx</p>
-                            </a>
-                               <a href="#" class="list-group-item">
-                                <h4 class="list-group-item-heading">Title Thread</h4>
-                                <p class="list-group-item-text">xx Likes xx:xx PM/AM On xx-xx-xx</p>
-                            </a>
-                               <a href="#" class="list-group-item">
-                                <h4 class="list-group-item-heading">Title Thread</h4>
-                                <p class="list-group-item-text">xx Likes xx:xx PM/AM On xx-xx-xx</p>
-                            </a>
-                               <a href="#" class="list-group-item">
-                                <h4 class="list-group-item-heading">Title Thread</h4>
-                                <p class="list-group-item-text">xx Likes xx:xx PM/AM On xx-xx-xx</p>
-                            </a>
-                               <a href="#" class="list-group-item">
-                                <h4 class="list-group-item-heading">Title Thread</h4>
-                                <p class="list-group-item-text">xx Likes xx:xx PM/AM On xx-xx-xx</p>
-                            </a>
-                               <a href="#" class="list-group-item">
-                                <h4 class="list-group-item-heading">Title Thread</h4>
-                                <p class="list-group-item-text">xx Likes xx:xx PM/AM On xx-xx-xx</p>
-                            </a>
-                               <a href="#" class="list-group-item">
-                                <h4 class="list-group-item-heading">Title Thread</h4>
-                                <p class="list-group-item-text">xx Likes xx:xx PM/AM On xx-xx-xx</p>
-                            </a>
+                            
+                            <% 
+
+                                String test = request.getParameter("id");
+                                Thread data = new Thread();
+                                data.GetPublicThread();
+
+                                ArrayList<Integer> publicThread = data.getArrayId();
+                                
+                        for(int i = 0; i < publicThread.size(); i++) {
+                            Thread thd = new Thread();
+                            thd.setId(publicThread.get(i));
+                            thd.GetThread();
+                            
+                            
+                            out.println("<a href='#' class='list-group-item'><h4 class='list-group-item-heading'>");
+                            out.println(thd.getJudul());
+                            out.println("<p class='list-group-item-text'>xx Likes ");
+                            out.println(thd.getDatel());
+                            out.println("</p></a>");
+                        }
+                            %>  
+                            
                            
                         </div>
                     </div>

@@ -4,6 +4,7 @@
     Author     : seryuzaki-woorld
 --%>
 
+<%@page import="model.User"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.ResultSet"%>
@@ -33,10 +34,15 @@
                 }
                 %>
                         <div class="col-md-12">
-                          
+                          <%
+                                HttpSession sessionUser=request.getSession(false);  
+                                User logginUser = (User) request.getSession().getAttribute("userObj");
+                                
+                                %>
                             <form role="form" action="<% out.print(session.getAttribute("baseUrl")); %>CategoryController" method="post">
                                 <p>CATEGORY NAME :</p>
                                 <input type="text" name="nama" class="form-control" />
+                                <input type="hidden" name="idUser" value="<%= logginUser.getId() %>" />
                                 <br>
 
                                 <button type="submit" class="btn btn-primary form-control">Submit</button>
@@ -53,21 +59,40 @@
                                 </thead>
                               
                                 <tbody>
+                                    
                                     <% 
                                         Category category = new Category();
                                         category.GetAllCategory();
                                         ArrayList<String> namaCategory = category.getArrayNama();
+                                        ArrayList<Integer> idCategory = category.getArrayId();
+                                        int i =0;
                                         Iterator it = namaCategory.listIterator();
-                                        while (it.hasNext()) {
-                                            out.print("<tr>");
-                                            out.print("<td>");
-                                            out.print(it.next());
-                                            out.print("</td>");
-                                            out.print("<td>");
-                                            out.print("<a class='btn btn-danger'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a> <a class='btn btn-info'><span class='glyphicon glyphicon-cog' aria-hidden='true'></span></a>");
-                                            out.print("</td>");
-                                            out.print("</tr>");
-                                        }
+                                        while (it.hasNext()) {  %>
+                                            <tr>
+                                            <td>
+                                                <%= it.next() %>
+                                                <%= idCategory.get(i) %>
+                                            </td>
+                                            <td>
+                                            <form role="form" action="<% out.print(session.getAttribute("baseUrl")); %>CategoryController?action=delete&id=<%= idCategory.get(i++)%>" method="post">
+                                            <a class='btn btn-danger' >
+                                                
+         
+                                                <input type="submit">
+                                                <span class='glyphicon glyphicon-remove' aria-hidden='true'>
+                                                    
+                                                </span>
+                                                </input>
+                                            </a> 
+                                            </form>
+                                            <a class='btn btn-info'>
+                                                <span class='glyphicon glyphicon-cog' aria-hidden='true'>
+                                                    
+                                                </span>
+                                            </a>
+                                            </td>
+                                            </tr>
+                                        <% }
                                     %>
                                     
                                 </tbody> 

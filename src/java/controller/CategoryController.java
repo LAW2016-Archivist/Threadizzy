@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers;
+package controller;
 
 import controller.*;
 import java.io.IOException;
@@ -43,16 +43,30 @@ public class CategoryController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         PrintWriter out = response.getWriter();
- 
+        String test = request.getParameter("action");
+        if(test != null && test.equalsIgnoreCase("delete")) {
+           Category category = new Category();
+            category.setId(Integer.parseInt(request.getParameter("id")));
+            
+            category.DeleteCategory();
+            
+            HttpSession session = request.getSession(true);
+            session.setAttribute("categoryDeleteSuccess", "Success Delete Category");
+            String redirectURL = session.getAttribute("baseUrl") + "dashboard/panel/form-add-category-thread.jsp";
+            response.sendRedirect(redirectURL);
+       }
+        else {
             Category category = new Category();
             category.setNama(request.getParameter("nama"));
-
+            category.setIdUser(Integer.parseInt(request.getParameter("idUser")));
             category.RegisterCategory();
             HttpSession session = request.getSession(true);
             session.setAttribute("categorySuccess", "Success Create Category");
             String redirectURL = session.getAttribute("baseUrl") + "dashboard/panel/form-add-category-thread.jsp";
             response.sendRedirect(redirectURL);
       
+        }
+       
        
 
     }
