@@ -11,7 +11,7 @@
             }
             
             HttpSession sessionUser=request.getSession(false);  
-           User logginUser = (User) request.getSession().getAttribute("userObj");
+            User logginUser = (User) request.getSession().getAttribute("userObj");
             
             
             

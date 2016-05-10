@@ -100,6 +100,23 @@ public class UserFollowersTable {
         }
     }
     
+    public static void unfollow(User user1, User user2) throws SQLException {
+        String query = "DELETE FROM user_followers WHERE id_user=? AND id_followers=?";
+        try {
+            conn = ConnectionFactory.getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, user2.getId());
+            ps.setInt(2, user1.getId());
+            System.out.println("Delete "+user1.getNama()+" follow "+ user2.getNama());
+            ps.executeUpdate();
+            System.out.println("Deleted");
+        }
+        finally {
+            if (ps != null) { ps.close(); }
+            if (conn != null) { conn.close(); }
+        }
+    }
+    
     public static boolean isFollowing(User user1, User user2) throws SQLException {
         String query = "SELECT * FROM user_followers WHERE id_user=? AND id_followers=?";
         boolean isFollowing = false;
@@ -122,6 +139,7 @@ public class UserFollowersTable {
             if (ps != null) { ps.close(); }
             if (conn != null) { conn.close(); }
         }
+        
         return isFollowing;
     }
     

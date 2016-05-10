@@ -71,10 +71,17 @@
         <from>^/profile/([0-9]+)/following$</from>
         <to>/UserFollowController?action=following&amp;id=$1</to>
     </rule>
+    
     <rule>
         <from>^/profile/([0-9]+)/follow$</from>
         <to>/UserFollowController?action=follow&amp;id=$1</to>
     </rule>
+    
+    <rule>
+        <from>^/profile/([0-9]+)/unfollow$</from>
+        <to>/UserFollowController?action=unfollow&amp;id=$1</to>
+    </rule>
+    
     <rule>
         <from>^/status/store$</from>
         <to>/StatusController?action=store</to>

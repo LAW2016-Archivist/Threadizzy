@@ -37,9 +37,57 @@ public class UserFollowController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String action = request.getParameter("action");
         
+        if (action.equals("follow") && request.getParameter("id") != null) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            follow(request, response, id);
+        }
+        if (action.equals("unfollow") && request.getParameter("id") != null) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            unfollow(request, response, id);
+        }
     }
 
+    
+    private void follow(HttpServletRequest request, HttpServletResponse response, int id) throws IOException {
+        User user = (User) request.getSession().getAttribute("userObj");
+        try {
+            User toBeFollowed = UserTable.get(id);
+            if (toBeFollowed != null) {
+                UserFollowersTable.follow(user, toBeFollowed);
+            }
+            else {
+                request.getSession().setAttribute("followStatus", "fail");
+            }
+            response.sendRedirect(request.getContextPath()+"/profile/"+toBeFollowed.getId());
+            
+        } 
+        catch (SQLException ex) {
+            Logger.getLogger(UserFollowController.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+    }
+    
+    private void unfollow(HttpServletRequest request, HttpServletResponse response, int id) throws IOException {
+        User user = (User) request.getSession().getAttribute("userObj");
+        try {
+            User toBeUnfollowed = UserTable.get(id);
+            if (toBeUnfollowed != null) {
+                System.out.println("Trying to unfollow");
+                UserFollowersTable.unfollow(user, toBeUnfollowed);
+                request.getSession().setAttribute("unfollowStatus", "success");
+            }
+            else {
+                request.getSession().setAttribute("unfollowStatus", "fail");
+            }
+            response.sendRedirect(request.getContextPath()+"/profile/"+toBeUnfollowed.getId());
+            
+        } 
+        catch (SQLException ex) {
+            Logger.getLogger(UserFollowController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -80,23 +128,7 @@ public class UserFollowController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action.equals("follow")) {
-            // do the follow
-//            response.getWriter().print("YEY");
-            int followedId = Integer.parseInt(request.getParameter("id"));
-            User user = (User) request.getSession().getAttribute("userObj");
-            UserTable ut = new UserTable();
-            UserFollowersTable uft = new UserFollowersTable();
-            
-            try {
-                uft.follow(user, ut.get(followedId));
-            } catch (SQLException ex) {
-                Logger.getLogger(UserFollowController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-//            response.getWriter().print("YEY");
-            response.sendRedirect(request.getContextPath()+"/profile/"+followedId);
-        }
+        processRequest(request, response);
     }
 
     /**

@@ -67,10 +67,9 @@ public class ProfileController extends HttpServlet {
                 return;
             }
             // view kalau user login
-            UserTable ut = new UserTable();
             User viewedUser = null;
             try {
-                viewedUser = ut.get(viewedId);
+                viewedUser = UserTable.get(viewedId);
             } catch (SQLException ex) {
                 Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -87,10 +86,16 @@ public class ProfileController extends HttpServlet {
                 try {
                     // kalau lihat orang lain
                     if (UserFollowersTable.isFollowing(user, viewedUser)) {
-                        viewURL = "/dashboard/view-other-user-profile-follow.jsp";
+                        System.out.println("following");
+                        viewURL = "/dashboard/view-other-user-profile-followed.jsp";
+                        request.getServletContext().getRequestDispatcher(viewURL).forward(request, response);
+                        return;
                     }
                     else {
-                        viewURL = "/dashboard/view-other-user-profile-unfollow.jsp";
+                        System.out.println("not following");
+                        viewURL = "/dashboard/view-other-user-profile-notfollowed.jsp";
+                        request.getServletContext().getRequestDispatcher(viewURL).forward(request, response);
+                        return;
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
