@@ -81,7 +81,7 @@ public class StatusController extends HttpServlet {
     // menyimpan status baru yang telah dibuat
     private void store(HttpServletRequest request, HttpServletResponse response) throws IOException {
         User user = (User) request.getSession().getAttribute("userObj");
-        String isiStatus = request.getParameter("isiStatus");
+        String isiStatus = request.getParameter("status");
         Status status = new Status();
         status.setIdUser(user.getId());
         status.setIsi(isiStatus);

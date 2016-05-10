@@ -75,6 +75,11 @@
         <from>^/profile/([0-9]+)/follow$</from>
         <to>/UserFollowController?action=follow&amp;id=$1</to>
     </rule>
+    <rule>
+        <from>^/status/store$</from>
+        <to>/StatusController?action=store</to>
+    </rule>
+    
     
     
     <!--

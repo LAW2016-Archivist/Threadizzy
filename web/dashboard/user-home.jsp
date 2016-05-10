@@ -68,7 +68,7 @@
                 <div class="col-md-6">
 
                     <div class="col-md-12 ">
-                        <form class=" form-horizontal" role="form" action="<% out.print(session.getAttribute("baseUrl")); %>StatusController" method="post">
+                        <form class=" form-horizontal" role="form" action="<%= request.getContextPath()+"/status/store" %>" method="post">
                             <fieldset>
                                 <legend>What Do you Think ? </legend>
                                 <div class="form-group">
