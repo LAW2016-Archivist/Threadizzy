@@ -18,12 +18,7 @@ import java.util.logging.Logger;
 public class DB {
     public Connection Connection() throws ClassNotFoundException, SQLException
     {
-        
-         Class.forName("com.mysql.jdbc.Driver");
-            String userName = "root";
-            String password = "qwert12345";
-            String url = "jdbc:mysql://localhost/threadizzy";
-            Connection connection = DriverManager.getConnection(url, userName, password);
+            Connection connection = ConnectionFactory.getConnection();
             return connection;
             
      }
