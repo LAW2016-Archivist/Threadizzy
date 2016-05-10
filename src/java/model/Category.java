@@ -71,7 +71,7 @@ public class Category {
         this.arrayId = arrayId;
     }
 
-    public void RegisterCategory() throws ClassNotFoundException {
+    public void registerCategory() throws ClassNotFoundException {
         try {
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();
@@ -115,7 +115,7 @@ public class Category {
 
     }
 
-    public void GetCategory() throws ClassNotFoundException {
+    public void getCategory() throws ClassNotFoundException {
         try {
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();
@@ -132,7 +132,7 @@ public class Category {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void DeleteCategory() throws ClassNotFoundException {
+    public void deleteCategory() throws ClassNotFoundException {
         try {
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();

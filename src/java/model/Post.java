@@ -83,7 +83,7 @@ public class Post {
     public void setArrayId(ArrayList<Integer> arrayId) {
         this.arrayId = arrayId;
     }
-     public void RegisterPost() throws ClassNotFoundException {
+     public void registerPost() throws ClassNotFoundException {
         try {
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();
@@ -102,7 +102,7 @@ public class Post {
         }
     }
      
-    public void GetUserPost() throws ClassNotFoundException {
+    public void getUserPost() throws ClassNotFoundException {
         try {
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();
@@ -120,7 +120,7 @@ public class Post {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-     public void GetPost() throws ClassNotFoundException {
+     public void getPost() throws ClassNotFoundException {
         try {
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();

@@ -45,7 +45,7 @@ public class Status {
     }
 
 
-    public void RegisterStatus() throws ClassNotFoundException {
+    public void registerStatus() throws ClassNotFoundException {
         try {
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();

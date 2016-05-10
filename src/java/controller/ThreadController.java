@@ -52,7 +52,7 @@ public class ThreadController extends HttpServlet {
             thread.setJudul(request.getParameter("judul"));
             thread.setStatus(Integer.parseInt(request.getParameter("status")));
 
-            thread.RegisterThread();
+            thread.registerThread();
             HttpSession session = request.getSession(true);
             session.setAttribute("threadSuccess", "Success Create Thread");
             String redirectURL = session.getAttribute("baseUrl") + "dashboard/panel/manage-thread.jsp";

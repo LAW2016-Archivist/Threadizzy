@@ -83,7 +83,7 @@ public class Thread {
     public void setArrayId(ArrayList<Integer> arrayId) {
         this.arrayId = arrayId;
     }
-     public void RegisterThread() throws ClassNotFoundException {
+     public void registerThread() throws ClassNotFoundException {
         try {
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();
@@ -102,7 +102,7 @@ public class Thread {
         }
     }
      
-    public void GetUserThread() throws ClassNotFoundException {
+    public void getUserThread() throws ClassNotFoundException {
         try {
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();
@@ -120,7 +120,7 @@ public class Thread {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void GetPublicThread() throws ClassNotFoundException {
+    public void getPublicThread() throws ClassNotFoundException {
         try {
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();
@@ -139,7 +139,7 @@ public class Thread {
         }
     }
     
-     public void GetThread() throws ClassNotFoundException {
+     public void getThread() throws ClassNotFoundException {
         try {
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();

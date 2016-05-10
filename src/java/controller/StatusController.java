@@ -96,10 +96,12 @@ public class StatusController extends HttpServlet {
         response.sendRedirect(redirectURL);
     }
     
+    // GET
     private void edit(HttpServletRequest request, HttpServletResponse response, int id) {
         
     }
     
+    // POST
     private void update(HttpServletRequest request, HttpServletResponse response, int id) throws IOException {
         User user = (User) request.getSession().getAttribute("userObj");
         String isiStatus = request.getParameter("isiStatus");

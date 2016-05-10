@@ -57,7 +57,7 @@ public class PostController extends HttpServlet {
             post.setJudul(request.getParameter("judul"));
             post.setIsi(request.getParameter("isi"));
             out.write(post.getIsi());
-            post.RegisterPost();
+            post.registerPost();
             HttpSession session = request.getSession(true);
             session.setAttribute("postSuccess", "Success Create Post");
             String redirectURL = session.getAttribute("baseUrl") + "dashboard/thread/view-thread.jsp?id="+Integer.parseInt(request.getParameter("id_thread"));

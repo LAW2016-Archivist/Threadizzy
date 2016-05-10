@@ -46,7 +46,7 @@ public class CategoryController extends HttpServlet {
            Category category = new Category();
             category.setId(Integer.parseInt(request.getParameter("id")));
             
-            category.DeleteCategory();
+            category.deleteCategory();
             
             HttpSession session = request.getSession(true);
             session.setAttribute("categoryDeleteSuccess", "Success Delete Category");
@@ -57,7 +57,7 @@ public class CategoryController extends HttpServlet {
             Category category = new Category();
             category.setNama(request.getParameter("nama"));
             category.setIdUser(Integer.parseInt(request.getParameter("idUser")));
-            category.RegisterCategory();
+            category.registerCategory();
             HttpSession session = request.getSession(true);
             session.setAttribute("categorySuccess", "Success Create Category");
             String redirectURL = session.getAttribute("baseUrl") + "dashboard/panel/form-add-category-thread.jsp";
