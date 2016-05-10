@@ -106,8 +106,12 @@ public class StatusController extends HttpServlet {
         User user = (User) request.getSession().getAttribute("userObj");
         String isiStatus = request.getParameter("isiStatus");
         Status status = StatusTable.find(id);
+        
+        // jika status yang ingin diupdate tidak ditemukan, balik ke halaman yang manggil
         if (status == null) {
-            // balik ke halaman yang manggil
+            
+            // TODO: tambahkan pesan "Status tidak ditemukan" ke session
+            // TODO: ubah halaman redirect
             response.sendRedirect(request.getHeader("referer"));
         }
         else {
@@ -120,12 +124,36 @@ public class StatusController extends HttpServlet {
                 Logger.getLogger(StatusController.class.getName()).log(Level.SEVERE, null, ex);
             }
             
+            // TODO: ubah halaman redirect
             response.sendRedirect(request.getHeader("referer"));
         }
     }
     
-    private void delete(HttpServletRequest request, HttpServletResponse response, int id) {
+    private void delete(HttpServletRequest request, HttpServletResponse response, int id) throws IOException {
+        User user = (User) request.getSession().getAttribute("userObj");
+        String isiStatus = request.getParameter("isiStatus");
+        Status status = StatusTable.find(id);
         
+        // jika status yang ingin dihapus tidak ditemukan, balik ke halaman yang manggil
+        if (status == null) {
+            
+            // TODO: tambah pesan "Status tidak ditemukan" ke session
+            // TODO: ubah halaman redirect
+            response.sendRedirect(request.getHeader("referer"));
+        }
+        else {
+            status.setIdUser(user.getId());
+            status.setIsi(isiStatus);
+            
+            try {
+                StatusTable.delete(status);
+            } catch (SQLException ex) {
+                Logger.getLogger(StatusController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            // TODO: ubah halaman redirect
+            response.sendRedirect(request.getHeader("referer"));
+        }
     }
     
     

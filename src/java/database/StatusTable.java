@@ -43,12 +43,13 @@ public class StatusTable {
     }
     
     public static void update(Status status) throws SQLException {
-        String query = "UPDATE status SET isi=?";
+        String query = "UPDATE status SET isi=? WHERE id=?";
         try {
             conn = ConnectionFactory.getConnection();
             ps = conn.prepareStatement(query);
             
             ps.setString(1, status.getIsi());
+            ps.setInt(2, status.getId());
             
             ps.executeUpdate();
         }
@@ -57,7 +58,19 @@ public class StatusTable {
             if (conn != null) { conn.close(); }
         }
     }
-    public static void delete(Status status) {
-        
+    public static void delete(Status status) throws SQLException {
+        String query = "DELETE FROM status WHERE id=?";
+        try {
+            conn = ConnectionFactory.getConnection();
+            ps = conn.prepareStatement(query);
+            
+            ps.setInt(1, status.getId());
+            
+            ps.executeUpdate();
+        }
+        finally {
+            if (ps != null) { ps.close(); }
+            if (conn != null) { conn.close(); }
+        }
     }
 }
