@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -19,19 +20,20 @@ import java.util.logging.Logger;
  */
 public class Status {
      private String isi ="";
-    private int id, id_user;
+    private int id;
+    private int idUser;
+    private Time datel;
 
     public Status() {
         isi = "";
-      
     }
 
-    public int getId_user() {
-        return id_user;
+    public int getIdUser() {
+        return idUser;
     }
 
-    public void setIdUser(int id_user) {
-        this.id_user = id_user;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
     public String getIsi() {
@@ -47,7 +49,7 @@ public class Status {
         try {
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();
-            String query = "INSERT INTO status (id_user, isi) VALUES ('" + id_user + "','" + isi + "')";
+            String query = "INSERT INTO status (id_user, isi) VALUES ('" + idUser + "','" + isi + "')";
             Statement myStatement = myconnection.createStatement();
             
             try {
@@ -60,5 +62,19 @@ public class Status {
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    /**
+     * @return the datel
+     */
+    public Time getDatel() {
+        return datel;
+    }
+
+    /**
+     * @param datel the datel to set
+     */
+    public void setDatel(Time datel) {
+        this.datel = datel;
     }
 }
