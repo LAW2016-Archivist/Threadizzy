@@ -25,14 +25,14 @@
 
                                 String test = request.getParameter("id");
                                 Thread data = new Thread();
-                                data.GetPublicThread();
+                                data.getPublicThread();
 
                                 ArrayList<Integer> publicThread = data.getArrayId();
                                 
                         for(int i = 0; i < publicThread.size(); i++) {
                             Thread thd = new Thread();
                             thd.setId(publicThread.get(i));
-                            thd.GetThread();
+                            thd.getThread();
                             
                             
                             out.println("<a href='#' class='list-group-item'><h4 class='list-group-item-heading'>");

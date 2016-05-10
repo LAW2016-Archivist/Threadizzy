@@ -71,13 +71,13 @@ public class StatusController extends HttpServlet {
         }
     }
     
-    // GET
+    // GET /status/create
     // mengembalikan halaman untuk membuat status baru
     private void create(HttpServletRequest request, HttpServletResponse response) {
         
     }
     
-    // POST
+    // POST /status/store
     // menyimpan status baru yang telah dibuat
     private void store(HttpServletRequest request, HttpServletResponse response) throws IOException {
         User user = (User) request.getSession().getAttribute("userObj");
@@ -96,12 +96,12 @@ public class StatusController extends HttpServlet {
         response.sendRedirect(redirectURL);
     }
     
-    // GET
+    // GET /status/{id}/edit
     private void edit(HttpServletRequest request, HttpServletResponse response, int id) {
         
     }
     
-    // POST
+    // POST /status/{id}/post
     private void update(HttpServletRequest request, HttpServletResponse response, int id) throws IOException {
         User user = (User) request.getSession().getAttribute("userObj");
         String isiStatus = request.getParameter("isiStatus");
@@ -129,16 +129,16 @@ public class StatusController extends HttpServlet {
         }
     }
     
+    // POST /status/{id}/delete
     private void delete(HttpServletRequest request, HttpServletResponse response, int id) throws IOException {
         User user = (User) request.getSession().getAttribute("userObj");
         String isiStatus = request.getParameter("isiStatus");
         Status status = StatusTable.find(id);
         
         // jika status yang ingin dihapus tidak ditemukan, balik ke halaman yang manggil
-        if (status == null) {
-            
-            // TODO: tambah pesan "Status tidak ditemukan" ke session
-            // TODO: ubah halaman redirect
+        if (status == null) {            
+            // TODO tambah pesan "Status tidak ditemukan" ke session
+            // TODO ubah halaman redirect
             response.sendRedirect(request.getHeader("referer"));
         }
         else {

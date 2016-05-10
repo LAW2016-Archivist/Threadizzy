@@ -25,7 +25,7 @@
 
                                 String test = request.getParameter("id");
                                 Thread data = new Thread();
-                                data.GetPublicThread();
+                                data.getPublicThread();
 
                                 ArrayList<Integer> publicThread = data.getArrayId();
                                 

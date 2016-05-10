@@ -52,7 +52,7 @@
                                 
                               
                                  <br>
-                                 <button type="sumbit" class="btn btn-primary form-control">Submit</button>
+                                 <button type="submit" class="btn btn-primary form-control">Submit</button>
                             </form>
                         </div>
                     </div>

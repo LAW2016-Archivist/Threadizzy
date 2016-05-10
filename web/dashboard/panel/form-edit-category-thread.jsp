@@ -26,7 +26,7 @@
                                 <input type="text" name="judul" class="form-control" />
                                 <br>
 
-                                <input type="sumbit" class="btn btn-primary form-control" value="Update"/>
+                                <input type="submit" class="btn btn-primary form-control" value="Update"/>
                             </form>
                         </div>
                        

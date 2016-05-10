@@ -38,7 +38,7 @@
                         Post post = new Post();
                         post.setIdUser(logginUser.getId());
                         post.setIdThread(data.getId());
-                        post.GetUserPost();
+                        post.getUserPost();
                         
                         ArrayList<Integer> postList = post.getArrayId();
                         for(int i = 0; i < postList.size(); i++) {

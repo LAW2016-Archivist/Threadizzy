@@ -31,7 +31,7 @@ Author     : seryuzaki-woorld
                             User logginUser = (User) request.getSession().getAttribute("userObj");
 
                             thread.setIdUser(logginUser.getId());
-                            thread.GetUserThread();
+                            thread.getUserThread();
                             ArrayList<Integer> id_thread = thread.getArrayId();
                             for (int i = 0; i < id_thread.size(); i++) {
                                 Thread data = new Thread();
@@ -42,7 +42,7 @@ Author     : seryuzaki-woorld
                                 Post post = new Post();
                                 post.setIdThread(data.getId());
                                 post.setIdUser(logginUser.getId());
-                                post.GetUserPost();
+                                post.getUserPost();
 
                                 out.println(" <div class='col-md-12'><div class='col-md-5'> <h3>");
                                 out.println(data.getJudul());

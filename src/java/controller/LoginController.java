@@ -48,11 +48,11 @@ public class LoginController extends HttpServlet {
         user.setEmail(request.getParameter("email"));
         user.setPassword(request.getParameter("password"));
         
-        if(User.LoginUser(user.getEmail(), user.getPassword())){
+        if(User.loginUser(user.getEmail(), user.getPassword())){
             
             User us = new User();
             us.setEmail(String.valueOf(request.getParameter("email")));
-            us.GetUser();
+            us.getUser();
             HttpSession session = request.getSession(true);
             session.setAttribute("user", us);
             

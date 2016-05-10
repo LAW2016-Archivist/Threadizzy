@@ -58,7 +58,7 @@ public class RegisterController extends HttpServlet {
 
             } else {
 
-                user.RegisterUser();
+                user.registerUser();
                 HttpSession session = request.getSession(true);
                 session.setAttribute("messageSuccess", "Success Create Account");
                 String redirectURL = session.getAttribute("baseUrl") + "login-form.jsp";

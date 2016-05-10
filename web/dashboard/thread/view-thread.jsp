@@ -32,7 +32,7 @@
                                 Thread data = new Thread();
                                 data.setId(Integer.parseInt(test));
 
-                                data.GetThread();  
+                                data.getThread();  
                             %>    
                                 </p>
                             <p>category 
@@ -40,7 +40,7 @@
                                 
                                 Category category = new Category();
                                 category.setId(data.getIdCategory());
-                                category.GetCategory();
+                                category.getCategory();
                                 out.print(category.getNama());
                             %>
                             </p>
@@ -67,13 +67,13 @@
                         Post post = new Post();
                         post.setIdUser(logginUser.getId());
                         post.setIdThread(data.getId());
-                        post.GetUserPost();
+                        post.getUserPost();
                         
                         ArrayList<Integer> postList = post.getArrayId();
                         for(int i = 0; i < postList.size(); i++) {
                             Post pst = new Post();
                             pst.setId(postList.get(i));
-                            pst.GetPost();
+                            pst.getPost();
                             
                             out.println(" <div class='col-md-12'><h3>");
                             out.println(pst.getJudul());

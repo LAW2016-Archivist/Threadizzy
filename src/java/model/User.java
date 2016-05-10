@@ -80,7 +80,7 @@ public class User {
         this.id = id;
     }
 
-    public void RegisterUser() throws ClassNotFoundException {
+    public void registerUser() throws ClassNotFoundException {
         try {
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();
@@ -100,7 +100,7 @@ public class User {
         }
     }
 
-    public static boolean LoginUser(String user, String pwd) {
+    public static boolean loginUser(String user, String pwd) {
         boolean check = false;
         try {
             Connection myconnection = ConnectionFactory.getConnection();
@@ -135,7 +135,7 @@ public class User {
         return check;
     }
 
-    public void GetUser() throws ClassNotFoundException {
+    public void getUser() throws ClassNotFoundException {
         try {
             Connection myconnection = ConnectionFactory.getConnection();
             String sqlString = "SELECT * FROM user WHERE email = '" + email + "'";

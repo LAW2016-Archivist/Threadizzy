@@ -31,7 +31,7 @@
                                
                               
                                  <br>
-                                <input type="sumbit" class="btn btn-primary form-control" value="UPDATE"/>
+                                <input type="submit" class="btn btn-primary form-control" value="UPDATE"/>
                             </form>
                         </div>
                     </div>
