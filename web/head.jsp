@@ -1,7 +1,7 @@
 <%
 
     session = request.getSession(true);
-    session.setAttribute("baseUrl", "http://localhost:8080/Threadizzy/");
+    session.setAttribute("baseUrl", request.getContextPath()+"/");
     
 %>
 <!-- Latest compiled and minified CSS -->

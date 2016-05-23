@@ -41,9 +41,9 @@ public class HomeController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getSession().getAttribute("userObj") == null) {
-            response.sendRedirect(request.getSession().getAttribute("baseUrl") + "login-form.jsp");
-        }
+//        if (request.getSession().getAttribute("userObj") == null) {
+//            response.sendRedirect(request.getSession().getAttribute("baseUrl") + "login-form.jsp");
+//        }
         
         
         String action = request.getParameter("action");

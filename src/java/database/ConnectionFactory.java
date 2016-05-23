@@ -19,8 +19,8 @@ public class ConnectionFactory {
     
     public static ConnectionFactory instance = new ConnectionFactory();
     public static final String URL = "jdbc:mysql://localhost/threadizzy";
-    public static final String USER = "root";
-    public static final String PASSWORD = "qwert12345";
+    public static final String USER = "thdz";
+    public static final String PASSWORD = "thdz";
     public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver"; 
     
     private ConnectionFactory() {
