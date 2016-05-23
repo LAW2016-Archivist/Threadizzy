@@ -26,6 +26,7 @@ public class Category {
     private int idUser;
     private ArrayList<String> arrayNama;
     private ArrayList<Integer> arrayId;
+    private ArrayList<Integer> arrayUser;
 
     public Category() {
         nama = "";
@@ -70,6 +71,14 @@ public class Category {
     public void setArrayId(ArrayList<Integer> arrayId) {
         this.arrayId = arrayId;
     }
+    
+    public ArrayList<Integer> getArrayUser() {
+        return arrayUser;
+    }
+
+    public void setArrayUser(ArrayList<Integer> arrayUser) {
+        this.arrayUser = arrayUser;
+    }
 
     public void registerCategory() throws ClassNotFoundException {
         try {
@@ -90,7 +99,7 @@ public class Category {
         }
     }
 
-    public void GetAllCategory() throws ClassNotFoundException {
+    public void getAllCategory() throws ClassNotFoundException {
         try {
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();
@@ -99,14 +108,16 @@ public class Category {
             ResultSet rs = myStatement.executeQuery(sqlString);
             ArrayList<String> namaCategory = new ArrayList();
             ArrayList<Integer> idCategory = new ArrayList();
-            int id = 1;
+            ArrayList<Integer> userCategory = new ArrayList();
             while (rs.next()) {
                 namaCategory.add(rs.getString("nama"));
-                idCategory.add(id);
+                idCategory.add(rs.getInt("id"));
+                userCategory.add(rs.getInt("id_user"));
                 id++;
             }
             this.arrayId = idCategory;
             this.arrayNama = namaCategory;
+            this.arrayUser = userCategory;
             myStatement.close();
             myconnection.close();
         } catch (SQLException ex) {
@@ -132,14 +143,37 @@ public class Category {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void deleteCategory() throws ClassNotFoundException {
+    public boolean deleteCategory() throws ClassNotFoundException {
+        int check=0;
         try {
             DB dbconn = new DB();
             Connection myconnection = dbconn.Connection();
             String sqlString = "Delete  FROM category WHERE id='" + id + "'";
             Statement myStatement = myconnection.createStatement();
-            myStatement.executeUpdate(sqlString);
+            check=myStatement.executeUpdate(sqlString);
  
+
+            myStatement.close();
+            myconnection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(check==0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    
+    public void editCategory() throws ClassNotFoundException {
+        try {
+            DB dbconn = new DB();
+            Connection myconnection = dbconn.Connection();
+            String sqlString = "UPDATE category SET nama='"+ nama +"' WHERE id='" + id + "'";
+           
+            Statement myStatement = myconnection.createStatement();
+            myStatement.executeUpdate(sqlString);
 
             myStatement.close();
             myconnection.close();

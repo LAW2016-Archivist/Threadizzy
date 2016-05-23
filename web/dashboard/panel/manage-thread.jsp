@@ -16,23 +16,47 @@ Author     : seryuzaki-woorld
     </head>
 
     <body class="">
+        <%
+            if (session.getAttribute("user") == null) {
+            String site = session.getAttribute("baseUrl") + "login-form.jsp";
+            response.sendRedirect(response.encodeRedirectURL(site));
+            }
+            //message from RegisterController
+            HttpSession sessionUser=request.getSession(false);  
+            User logginUser = (User) request.getSession().getAttribute("userObj");
+            
+            Thread thread = new Thread();
+            thread.setIdUser(logginUser.getId());
+            thread.getUserThread();
+            ArrayList<Integer> id_thread = thread.getArrayId();
+            
+          
+        %>
         <jsp:include page="/navbar.jsp" />
         <div class="container">
             <br><br><br><br><br>
             <div class="col-md-12 " >
                 <div class="panel panel-default">
                     <div class="panel-heading">Manage Thread</div>
+                    <%
+                        if (session.getAttribute("threadSuccess") != null){
+                        out.print("<div class=\"alert alert-success\">");
+                        out.print(session.getAttribute("threadSuccess"));
+                        out.print("</div>"); 
+                        session.removeAttribute("threadSuccess");
+                        }
+                        
+                        if(id_thread.isEmpty()){
+                            out.print("<div class=\"alert alert-success\">");
+                            out.print("You don't have a Thread. Make one first");
+                            out.print("</div>"); 
+                        }
+                      %>
                     <div class="panel-body"> 
 
 
                         <%
-                            Thread thread = new Thread();
-                            HttpSession sessionUser = request.getSession(false);
-                            User logginUser = (User) request.getSession().getAttribute("userObj");
-
-                            thread.setIdUser(logginUser.getId());
-                            thread.getUserThread();
-                            ArrayList<Integer> id_thread = thread.getArrayId();
+                            
                             for (int i = 0; i < id_thread.size(); i++) {
                                 Thread data = new Thread();
                                 data.setId(id_thread.get(i));
@@ -43,47 +67,48 @@ Author     : seryuzaki-woorld
                                 post.setIdThread(data.getId());
                                 post.setIdUser(logginUser.getId());
                                 post.getUserPost();
-
-                                out.println(" <div class='col-md-12'><div class='col-md-5'> <h3>");
-                                out.println(data.getJudul());
-                                out.println("</h3> <p>Created at ");
-                                out.println(data.getDatel());
-                                out.println("</p></div><div class='col-md-3'><p>");
-                                out.println("");
-                                out.println("xx Comment</p><p>xx Likers</p><p>");
-                                out.println(post.getArrayId().size());
-                                out.println(" Post</p><p class='btn btn-warning'>");
+                                
                                 Category category = new Category();
                                 category.setId(data.getIdCategory());
                                 category.getCategory();
-                                out.print(category.getNama());
-                                out.println("</p></div>");
-                                out.println("<div class='col-md-4' style='margin-top: 4%'>");
+                        %>
+                            <div class='col-md-12'>
+                                <div class='col-md-5'> 
+                                    <h3><%= data.getJudul()%> </h3> 
+                                    <p>Created at <%=data.getDatel()%> </p>
+                                </div>
+                                <div class='col-md-3'>
+                                    <p>xx Comment</p>
+                                    <p>xx Likers</p>
+                                    <p><%=post.getArrayId().size()%> Post</p>
+                                    <p class='btn btn-warning'><%=category.getNama()%></p>
+                                </div>
+                                <div class='col-md-4' style='margin-top: 4%'>
+                                    <a href='<%=session.getAttribute("baseUrl")%>dashboard/panel/post/form-add-post.jsp?id=<%=data.getId()%>' class='btn btn-info'>
+                                        <span class='glyphicon glyphicon-plus' aria-hidden='true'>
+                                        </span> 
+                                        ADD POST
+                                    </a>
 
-                                out.println("<a href='");
-                                out.println(session.getAttribute("baseUrl"));
-                                out.println("dashboard/panel/post/form-add-post.jsp?id=");
-                                out.print(data.getId());
-                                out.println("' class='btn btn-info'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span> ADD POST</a>");
+                                <a href='<%=session.getAttribute("baseUrl")%>dashboard/panel/post/manage-post.jsp?data=<%=data.getId()%>' class='btn btn-info'>
+                                    <span class='glyphicon glyphicon-erase' aria-hidden='true'>
+                                    </span> 
+                                    MANAGE POST</a> <br><br>
 
-                                out.println("<a href='");
-                                out.println(session.getAttribute("baseUrl"));
-                                out.println("dashboard/panel/post/manage-post.jsp?id=");
-                                out.println(data.getId());
-                                out.println("' class='btn btn-info'><span class='glyphicon glyphicon-erase' aria-hidden='true'></span> MANAGE POST</a><br><br>");
+                                <a href='<%=session.getAttribute("baseUrl")%>dashboard/panel/form-edit-thread.jsp?id=<%=data.getId()%>' class='btn btn-primary'>
+                                    <span class='glyphicon glyphicon-cog' aria-hidden='true'></span> 
+                                    EDIT </a>
 
-                                out.println("<a href='");
-                                out.println(session.getAttribute("baseUrl"));
-                                out.println("dashboard/panel/form-edit-thread.jsp' class='btn btn-primary'><span class='glyphicon glyphicon-cog' aria-hidden='true'></span> EDIT</a>");
+                                <a href='<%=session.getAttribute("baseUrl")%>dashboard/thread/view-thread.jsp?id=<%=data.getId()%>' class='btn btn-success'>
+                                    <span class='glyphicon glyphicon-new-window' aria-hidden='true'></span> 
+                                    VIEW</a> 
+                                <a href="<%=session.getAttribute("baseUrl")%>ThreadController?action=delete&id=<%=data.getId()%>" class='btn btn-danger'>
+                                        <span class='glyphicon glyphicon-remove' aria-hidden='true'></span> 
+                                        DELETE 
+                                </a>
 
-                                out.println("<a href='");
-                                out.println(session.getAttribute("baseUrl"));
-                                out.println("dashboard/thread/view-thread.jsp?id=");
-                                out.print(data.getId());
-                                out.println("' class='btn btn-success'><span class='glyphicon glyphicon-new-window' aria-hidden='true'></span> VIEW</a>");
-                                out.println("<a class='btn btn-danger'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span> DELETE </a>");
-                                out.println("</div> <div class='col-md-12'> <hr></div></div>");
-
+                                </div> <div class='col-md-12'> <hr></div></div>
+                        <% 
                             }
                         %>
 
@@ -107,8 +132,6 @@ Author     : seryuzaki-woorld
             </div>
 
         </div>
-
-    </div>
 
 </body>
 </html>

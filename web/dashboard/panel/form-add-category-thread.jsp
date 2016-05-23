@@ -25,6 +25,10 @@
                     <div class="panel-heading">Make Category Thread</div>
                     <div class="panel-body">
                          <%
+                             if (session.getAttribute("user") == null) {
+                String site = session.getAttribute("baseUrl") + "login-form.jsp";
+                response.sendRedirect(response.encodeRedirectURL(site));
+            }
                     //message from RegisterController
                 if (session.getAttribute("categorySuccess") != null){
                 out.print("<div class=\"alert alert-success\">");
@@ -37,7 +41,7 @@
                           <%
                                 HttpSession sessionUser=request.getSession(false);  
                                 User logginUser = (User) request.getSession().getAttribute("userObj");
-                                
+                             
                                 %>
                             <form role="form" action="<% out.print(session.getAttribute("baseUrl")); %>CategoryController" method="post">
                                 <p>CATEGORY NAME :</p>
@@ -62,37 +66,39 @@
                                     
                                     <% 
                                         Category category = new Category();
-                                        category.GetAllCategory();
+                                        category.getAllCategory();
                                         ArrayList<String> namaCategory = category.getArrayNama();
                                         ArrayList<Integer> idCategory = category.getArrayId();
-                                        int i =0;
+                                        ArrayList<Integer> userCategory = category.getArrayUser();
+                                        int i =0;                                   
+                                       
                                         Iterator it = namaCategory.listIterator();
-                                        while (it.hasNext()) {  %>
+                                        while (it.hasNext()) {  
+                                            it.next();
+                                            
+                                            if(logginUser.getId()==userCategory.get(i)) {
+                                    %>
                                             <tr>
                                             <td>
-                                                <%= it.next() %>
-                                                <%= idCategory.get(i) %>
+                                                <%=namaCategory.get(i) %>
                                             </td>
                                             <td>
-                                            <form role="form" action="<% out.print(session.getAttribute("baseUrl")); %>CategoryController?action=delete&id=<%= idCategory.get(i++)%>" method="post">
-                                            <a class='btn btn-danger' >
-                                                
-         
-                                                <input type="submit">
-                                                <span class='glyphicon glyphicon-remove' aria-hidden='true'>
-                                                    
-                                                </span>
-                                                </input>
-                                            </a> 
-                                            </form>
-                                            <a class='btn btn-info'>
+                                                <a href="<%=session.getAttribute("baseUrl")%>CategoryController?action=delete&ids=<%=idCategory.get(i)%>" class='btn btn-danger'>
+                                                    <span class='glyphicon glyphicon-remove' aria-hidden='true'></span> 
+                                                   
+                                                </a>
+                                            
+                                                <a class='btn btn-info' href="form-edit-category-thread.jsp?id=<%=idCategory.get(i) %>">
                                                 <span class='glyphicon glyphicon-cog' aria-hidden='true'>
                                                     
                                                 </span>
                                             </a>
+                                            
                                             </td>
                                             </tr>
-                                        <% }
+                                    <%      }
+                                        i++;
+                                        }
                                     %>
                                     
                                 </tbody> 

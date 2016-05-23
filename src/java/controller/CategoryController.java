@@ -43,16 +43,35 @@ public class CategoryController extends HttpServlet {
         PrintWriter out = response.getWriter();
         String test = request.getParameter("action");
         if(test != null && test.equalsIgnoreCase("delete")) {
-           Category category = new Category();
-            category.setId(Integer.parseInt(request.getParameter("id")));
+            Category category = new Category();
+            category.setId(Integer.parseInt(request.getParameter("ids")));
             
-            category.deleteCategory();
+            boolean check = category.deleteCategory();
             
             HttpSession session = request.getSession(true);
-            session.setAttribute("categoryDeleteSuccess", "Success Delete Category");
-            String redirectURL = session.getAttribute("baseUrl") + "dashboard/panel/form-add-category-thread.jsp";
+            if(check) {
+                session.setAttribute("categorySuccess", "Success Delete Category");
+            }
+            else {
+                session.setAttribute("categorySuccess", "Delete your thread which using this category first");
+            }
+            
+            String redirectURL = session.getAttribute("baseUrl") + "dashboard/panel/form-add-category-thread.jsp?"+ Integer.parseInt(request.getParameter("ids"));
             response.sendRedirect(redirectURL);
        }
+        
+        else if(test != null && test.equalsIgnoreCase("edit")) {
+            Category category = new Category();
+            category.setId(Integer.parseInt(request.getParameter("idd")));
+            category.setNama(request.getParameter("nama"));
+            
+            category.editCategory();
+           
+            HttpSession session = request.getSession(true);
+            session.setAttribute("categorySuccess", "Success Update Category");
+            String redirectURL = session.getAttribute("baseUrl") + "dashboard/panel/form-add-category-thread.jsp";
+            response.sendRedirect(redirectURL);
+        }
         else {
             Category category = new Category();
             category.setNama(request.getParameter("nama"));

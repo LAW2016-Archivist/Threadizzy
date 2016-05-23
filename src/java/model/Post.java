@@ -58,7 +58,7 @@ public class Post {
         return isi;
     }
 
-    public void setIsi(String status) {
+    public void setIsi(String isi) {
         this.isi = isi;
     }
     
@@ -134,6 +134,60 @@ public class Post {
                 this.isi=rs.getString("isi");
                 this.datel = rs.getTimestamp("datel");
             }
+            myStatement.close();
+            myconnection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     
+    public void editPost() throws ClassNotFoundException {
+        try {
+            DB dbconn = new DB();
+            Connection myconnection = dbconn.Connection();
+            String sqlString = "UPDATE post SET judul='"+ judul +"', isi='"+ isi +"' WHERE id='" + id + "'";
+            Statement myStatement = myconnection.createStatement();
+            myStatement.executeUpdate(sqlString);
+            myStatement.close();
+            myconnection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public boolean deletePost() throws ClassNotFoundException {
+        int check = 0;
+        try {
+            DB dbconn = new DB();
+            Connection myconnection = dbconn.Connection();
+            String sqlString = "DELETE FROM post WHERE id='" + id + "'";
+            Statement myStatement = myconnection.createStatement();
+            check = myStatement.executeUpdate(sqlString);    
+            myStatement.close();
+            myconnection.close();
+
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(check == 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    public void getPublicPost() throws ClassNotFoundException {
+        try {
+            DB dbconn = new DB();
+            Connection myconnection = dbconn.Connection();
+            String sqlString = "SELECT * FROM post WHERE (id_thread='"+id_thread+"')";
+            Statement myStatement = myconnection.createStatement();
+            ResultSet rs = myStatement.executeQuery(sqlString);
+            ArrayList<Integer> idPost = new ArrayList();
+            while (rs.next()) {
+                idPost.add(rs.getInt("id"));
+            }
+            this.arrayId = idPost;
             myStatement.close();
             myconnection.close();
         } catch (SQLException ex) {

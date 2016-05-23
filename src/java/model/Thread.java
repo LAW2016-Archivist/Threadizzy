@@ -160,6 +160,42 @@ public class Thread {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public void editThread() throws ClassNotFoundException {
+        try {
+            DB dbconn = new DB();
+            Connection myconnection = dbconn.Connection();
+            String sqlString = "UPDATE thread SET judul='"+ judul +"', id_category='"+ id_category +"', status='"+ status +"' WHERE id='" + id + "'";
+            Statement myStatement = myconnection.createStatement();
+            myStatement.executeUpdate(sqlString);
+            myStatement.close();
+            myconnection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public boolean deleteThread() throws ClassNotFoundException {
+        int check = 0;
+        try {
+            DB dbconn = new DB();
+            Connection myconnection = dbconn.Connection();
+            String sqlString = "DELETE FROM thread WHERE id='" + id + "'";
+            Statement myStatement = myconnection.createStatement();
+            check = myStatement.executeUpdate(sqlString);    
+            myStatement.close();
+            myconnection.close();
+
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(check == 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 
     /**
      * @return the namaUser

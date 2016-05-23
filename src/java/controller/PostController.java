@@ -5,7 +5,6 @@
  */
 package controller;
 
-import controller.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -43,26 +42,50 @@ public class PostController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         PrintWriter out = response.getWriter();
+        /*
         if(request.getParameter("isi").length() == 0){
             HttpSession session = request.getSession(true);
             session.setAttribute("postSuccess", "Success Create Post");
             String redirectURL = session.getAttribute("baseUrl") + "dashboard/";
             response.sendRedirect(redirectURL);
         }
+        */
             Post post = new Post();
-            
-            
-            post.setIdUser(Integer.parseInt(request.getParameter("id_user")));
-            post.setIdThread(Integer.parseInt(request.getParameter("id_thread")));
-            post.setJudul(request.getParameter("judul"));
-            post.setIsi(request.getParameter("isi"));
-            out.write(post.getIsi());
-            post.registerPost();
-            HttpSession session = request.getSession(true);
-            session.setAttribute("postSuccess", "Success Create Post");
-            String redirectURL = session.getAttribute("baseUrl") + "dashboard/thread/view-thread.jsp?id="+Integer.parseInt(request.getParameter("id_thread"));
-//            response.sendRedirect(redirectURL);
-      
+            String test = request.getParameter("action");
+            if(request.getParameter("action")!= null && test.equalsIgnoreCase("edit")) {
+                post.setId(Integer.parseInt(request.getParameter("id")));
+                post.getPost();
+                post.setJudul(request.getParameter("judul"));
+                post.setIsi(request.getParameter("isi"));
+                
+                post.editPost();
+                HttpSession session = request.getSession(true);
+                session.setAttribute("postSuccess", "Success Update Post");
+                String redirectURL = session.getAttribute("baseUrl") + "dashboard/thread/view-thread.jsp?id="+ post.getIdThread();
+                response.sendRedirect(redirectURL);
+            }
+            else if(request.getParameter("action")!= null && test.equalsIgnoreCase("delete")) {
+                post.setId(Integer.parseInt(request.getParameter("id")));
+                post.getPost();
+                
+                post.deletePost();
+                HttpSession session = request.getSession(true);
+                session.setAttribute("postSuccess", "Success Delete Post");
+                String redirectURL = session.getAttribute("baseUrl") + "dashboard/thread/view-thread.jsp?id="+ post.getIdThread();
+                response.sendRedirect(redirectURL);
+            }
+            else {
+                post.setIdUser(Integer.parseInt(request.getParameter("id_user")));
+                post.setIdThread(Integer.parseInt(request.getParameter("id_thread")));
+                post.setJudul(request.getParameter("judul"));
+                post.setIsi(request.getParameter("isi"));
+
+                post.registerPost();
+                HttpSession session = request.getSession(true);
+                session.setAttribute("postSuccess", "Success Create Post");
+                String redirectURL = session.getAttribute("baseUrl") + "dashboard/thread/view-thread.jsp?id="+Integer.parseInt(request.getParameter("id_thread"));
+                response.sendRedirect(redirectURL);
+            }
        
 
     }

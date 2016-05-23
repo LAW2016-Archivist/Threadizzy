@@ -3,6 +3,7 @@
     Created on : 24-Apr-2016, 14:17:48
     Author     : seryuzaki-woorld
 --%>
+<%@page import="model.Post"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Thread"%>
 <html>
@@ -29,23 +30,33 @@
 
                                 ArrayList<Integer> publicThread = data.getArrayId();
                                 
+                               
+                                
                         for(int i = 0; i < publicThread.size(); i++) {
                             Thread thd = new Thread();
                             thd.setId(publicThread.get(i));
                             thd.getThread();
                             
+                            Post post = new Post();
+                            post.setIdThread(thd.getId());
+                            post.getPublicPost();
                             
-                            out.println("<div class='col-md-12'><div class='col-md-5'><h2><a>");
-                            out.println(thd.getJudul());
-                            out.println("</a></h2><p>Post at");
-                            out.println(thd.getDatel());
-                            out.println("</p><p>xx Comment xx Likers xx Post</p> </div></div>");
+                            %>
+                           <div class='col-md-12'>
+                               <div class='col-md-5'>
+                                   <h2><a href="<%=session.getAttribute("baseUrl")%>dashboard/thread/view-thread.jsp?id=<%=thd.getId() %>"><%=thd.getJudul()%></a></h2>
+                                   <p>Post at <%=thd.getDatel()%></p>
+                                   <p>xx Comment xx Likers <%=post.getArrayId().size() %> Post</p> 
+                               </div>
+                           </div>
+                               
+                            <%
                         }
                             %>  
                         
                         <!--------------------------------------------------------------------------------------------------------------------------------------------------->
                        
-                            <center>
+                             <center>
                             <ul class="pagination pagination-sm">
                                 <li class="disabled"><a href="#">&laquo;</a></li>
                                 <li class="active"><a href="#">1</a></li>
@@ -62,7 +73,6 @@
 
         </div>
 
-    </div>
 
 </body>
 </html>

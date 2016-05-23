@@ -16,48 +16,80 @@
     </head>
 
     <body class="">
+         <%
+            if (session.getAttribute("user") == null) {
+            String site = session.getAttribute("baseUrl") + "login-form.jsp";
+            response.sendRedirect(response.encodeRedirectURL(site));
+            }
+            //message from RegisterController
+            HttpSession sessionUser=request.getSession(false);  
+            User logginUser = (User) request.getSession().getAttribute("userObj");
+
+            if(!request.getParameterMap().containsKey("data")) {
+                String site = session.getAttribute("baseUrl") + "dashboard/panel/manage-thread.jsp";
+                response.sendRedirect(response.encodeRedirectURL(site));
+                return;
+            }
+            Post post = new Post();
+            String test = request.getParameter("data");
+            
+            Thread data = new Thread();
+            data.setId(Integer.parseInt(test));
+            data.getThread();  
+            
+            post.setIdUser(logginUser.getId());
+            post.setIdThread(data.getId());
+            post.getUserPost();
+            ArrayList<Integer> postList = post.getArrayId();
+            
+            
+        %>
         <jsp:include page="/navbar.jsp" />
         <div class="container">
             <br><br><br><br><br>
             <div class="col-md-12 " >
                 <div class="panel panel-default">
-                    <div class="panel-heading">Manage Post On Thread "Title Thread"</div>
+                    <div class="panel-heading">Manage Post On Thread "<%=data.getJudul() %>"</div>
+                     <%
+   
+                        if(postList.isEmpty()){
+                            out.print("<div class=\"alert alert-success\">");
+                            out.print("You don't have a Post in this thread or this is not your thread");
+                            out.print("</div>"); 
+                        }
+                      %>
                     <div class="panel-body">
                        
                             
                             <% 
-                                HttpSession sessionUser=request.getSession(false);  
-                              User logginUser = (User) request.getSession().getAttribute("userObj");
-
-                                String test = request.getParameter("id");
-                                Thread data = new Thread();
-                                data.setId(Integer.parseInt(test));
-
-                                data.GetThread();  
-
-                        Post post = new Post();
-                        post.setIdUser(logginUser.getId());
-                        post.setIdThread(data.getId());
-                        post.getUserPost();
+                                
                         
-                        ArrayList<Integer> postList = post.getArrayId();
+                        
                         for(int i = 0; i < postList.size(); i++) {
                             Post pst = new Post();
                             pst.setId(postList.get(i));
-                            pst.GetPost();
+                            pst.getPost();
                             
-                            
-                            out.println("<div class='col-md-12'><h3>");
-                            out.println(pst.getJudul());
-                            out.println("</h3><hr><p>Post at");
-                            out.println(pst.getDatel());
-                            out.println(" </p><p> <a href='");
-                            out.println(session.getAttribute("baseUrl"));
-                            out.print("dashboard/panel/post/form-edit-post.jsp?post=");
-                            out.print(pst.getId());
-                            out.println("'class='btn btn-primary'><span class='glyphicon glyphicon-cog' aria-hidden='true'></span> EDIT</a>");
-                            out.println("<a class='btn btn-danger'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span> DELETE </a></p><hr></div>");
-                            
+                            %>
+                            <div class='col-md-12'>
+                                <h3><%=pst.getJudul()%> </h3>
+                                <hr>
+                                <p>Post at <%=pst.getDatel()%> </p>
+                                <p> 
+                                    <a href='<%=session.getAttribute("baseUrl")%>dashboard/panel/post/form-edit-post.jsp?post=<%=pst.getId()%>' 
+                                       class='btn btn-primary'>
+                                       <span class='glyphicon glyphicon-cog' aria-hidden='true'> </span> 
+                                       EDIT
+                                    </a>
+                                       
+                                    <a href="<%=session.getAttribute("baseUrl")%>PostController?action=delete&id=<%=pst.getId()%>" class='btn btn-danger'>
+                                        <span class='glyphicon glyphicon-remove' aria-hidden='true'></span> 
+                                        DELETE 
+                                    </a>
+                                </p>
+                                <hr>
+                            </div>
+                            <%
                         }
                             %>    
                        

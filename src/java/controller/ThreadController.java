@@ -5,7 +5,6 @@
  */
 package controller;
 
-import controller.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -43,7 +42,36 @@ public class ThreadController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         PrintWriter out = response.getWriter();
- 
+        String test = request.getParameter("action");
+        if(request.getParameter("action")!= null && test.equalsIgnoreCase("edit")) {
+            Thread thread = new Thread();
+            thread.setId(Integer.parseInt(request.getParameter("id")));
+            thread.setIdCategory(Integer.parseInt(request.getParameter("category")));
+            thread.setJudul(request.getParameter("judul"));
+            thread.setStatus(Integer.parseInt(request.getParameter("status")));
+
+            thread.editThread();
+            HttpSession session = request.getSession(true);
+            session.setAttribute("threadSuccess", "Success Update Thread");
+            String redirectURL = session.getAttribute("baseUrl") + "dashboard/panel/manage-thread.jsp";
+            response.sendRedirect(redirectURL);
+        }
+        
+        else  if(request.getParameter("action")!= null && test.equalsIgnoreCase("delete")) {
+            Thread thread = new Thread();
+            thread.setId(Integer.parseInt(request.getParameter("id")));
+            boolean check = thread.deleteThread();
+            HttpSession session = request.getSession(true);
+            if(check) {
+                session.setAttribute("threadSuccess", "Success Delete Thread");
+            }
+            else {
+                session.setAttribute("threadSuccess", "Delete your post from that thread first");
+            }
+            String redirectURL = session.getAttribute("baseUrl") + "dashboard/panel/manage-thread.jsp";
+            response.sendRedirect(redirectURL);
+        }
+        else {
             Thread thread = new Thread();
             
             
@@ -57,8 +85,7 @@ public class ThreadController extends HttpServlet {
             session.setAttribute("threadSuccess", "Success Create Thread");
             String redirectURL = session.getAttribute("baseUrl") + "dashboard/panel/manage-thread.jsp";
             response.sendRedirect(redirectURL);
-      
-            
+        }           
 
     }
 

@@ -13,17 +13,30 @@
     <body class="">
         <jsp:include page="/navbar.jsp" />
         <div class="container">
-
+            
             <div class="col-md-12 home-user-1 box-user-thread" >
-
+                <%
+             if (session.getAttribute("postSuccess") != null){
+                out.print("<div class=\"alert alert-success\">");
+                out.print(session.getAttribute("postSuccess"));
+                out.print("</div>"); 
+                session.removeAttribute("postSuccess");
+                }
+             %>
                 <div class="col-md-12 thread-head">
                     <div class="col-md-3">
+                        
                         <center>
                             <p>
                                 <img  height="120" width="120" class="img-circle" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"/>
                             </p>
                             <p>by 
                             <% 
+                                  if (session.getAttribute("user") == null) {
+                                    String site = session.getAttribute("baseUrl") + "login-form.jsp";
+                                    response.sendRedirect(response.encodeRedirectURL(site));
+                                  }
+            
                                 HttpSession sessionUser=request.getSession(false);  
 
                                 User logginUser = (User) request.getSession().getAttribute("userObj");
@@ -33,6 +46,16 @@
                                 data.setId(Integer.parseInt(test));
 
                                 data.getThread();  
+                                if(data.getJudul().equals("")) {
+                                    String site = session.getAttribute("baseUrl") + "dashboard/panel/manage-thread.jsp";
+                                    session.setAttribute("threadSuccess", "That is a private thread and it's not yours");
+                                    response.sendRedirect(response.encodeRedirectURL(site));
+                                }
+                                if(data.getIdUser() != logginUser.getId() && data.getStatus() == 2) {
+                                    String site = session.getAttribute("baseUrl") + "dashboard/panel/manage-thread.jsp";
+                                    session.setAttribute("threadSuccess", "That is a private thread and it's not yours");
+                                    response.sendRedirect(response.encodeRedirectURL(site));
+                                }
                             %>    
                                 </p>
                             <p>category 
@@ -62,7 +85,7 @@
                         <hr>
                     </div>
                 </div>
-                            
+               
                 <%
                         Post post = new Post();
                         post.setIdUser(logginUser.getId());
@@ -70,17 +93,32 @@
                         post.getUserPost();
                         
                         ArrayList<Integer> postList = post.getArrayId();
+                        if(postList.isEmpty()) {
+                            
+                            out.print("<div class='col-md-12'>");
+                            out.print("<div class=\"alert alert-success\">");
+                            out.print("This thread is empty!");
+                            out.print("</div>");
+                            out.print("</div>");
+                        }
                         for(int i = 0; i < postList.size(); i++) {
                             Post pst = new Post();
                             pst.setId(postList.get(i));
                             pst.getPost();
+                %>
+                            <div class='col-md-12'>
+                                <h3><%=pst.getJudul()%></h3>
                             
-                            out.println(" <div class='col-md-12'><h3>");
-                            out.println(pst.getJudul());
-                            out.println("</h3><hr><p>Post at");
-                            out.println(pst.getDatel());
-                            out.println(" </p><hr><div class='content'></div></div>");
-                            
+                                
+                                <hr>
+                                <p>Post at<%=pst.getDatel()%></p>
+                                <hr>
+                                <div class='content'>
+                                    <%=pst.getIsi()%>
+                                </div>
+                                <hr>
+                            </div>
+                           <% 
                         }
                 %>
                 
