@@ -32,28 +32,6 @@
         <to>/test/status/</to>
     </outbound-rule>
     
-<!--    <rule>
-        <note>List semua category</note>
-        <from>^/category$</from>
-        <to>/CategoryController?action=list</to>
-    </rule>
-    <rule>
-        <note>List atau add category</note>
-        <from>^/category/add$</from>
-        <to>/CategoryController?action=add</to>
-    </rule>
-    <rule>
-        <note>List atau add category</note>
-        <from>^/category/list$</from>
-        <to>/CategoryController?action=list</to>
-    </rule>
-    
-    <rule>
-        <note>edit atau delete category</note>
-        <from>^/category/([0-9]+)/(edit|delete)$</from>
-        <to>/CategoryController?action=$2&amp;id=$1</to>
-    </rule>-->
-    
     <rule>
         <from>^/profile/([0-9]+)$</from>
         <to>/ProfileController?action=view&amp;id=$1</to>
@@ -87,6 +65,15 @@
         <to>/StatusController?action=store</to>
     </rule>
     
+    <rule>
+        <from>^/status/([0-9]+)/delete$</from>
+        <to>/StatusController?action=delete&amp;id=$1</to>
+    </rule>
+    
+    <rule>
+        <from>^/dashboard/home$</from>
+        <to>/HomeController?action=view</to>
+    </rule>
     
     
     <!--

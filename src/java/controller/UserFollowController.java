@@ -37,15 +37,19 @@ public class UserFollowController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String action = request.getParameter("action");
         
         if (action.equals("follow") && request.getParameter("id") != null) {
             int id = Integer.parseInt(request.getParameter("id"));
             follow(request, response, id);
         }
-        if (action.equals("unfollow") && request.getParameter("id") != null) {
+        else if (action.equals("unfollow") && request.getParameter("id") != null) {
             int id = Integer.parseInt(request.getParameter("id"));
             unfollow(request, response, id);
+        }
+        else {
+            response.sendRedirect("/");
         }
     }
 
@@ -56,6 +60,7 @@ public class UserFollowController extends HttpServlet {
             User toBeFollowed = UserTable.get(id);
             if (toBeFollowed != null) {
                 UserFollowersTable.follow(user, toBeFollowed);
+                request.getSession().setAttribute("followStatus", "success");
             }
             else {
                 request.getSession().setAttribute("followStatus", "fail");

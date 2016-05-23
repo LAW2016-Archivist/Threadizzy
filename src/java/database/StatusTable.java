@@ -7,7 +7,10 @@ package database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import model.Status;
 
 /**
@@ -72,5 +75,40 @@ public class StatusTable {
             if (ps != null) { ps.close(); }
             if (conn != null) { conn.close(); }
         }
+    }
+    
+    public static List<Status> getFollowedStatus(int idUser) throws SQLException {
+        String query = "SELECT * from status " +
+                "INNER JOIN user_followers " +
+                "ON status.id_user = user_followers.id_user " +
+                "WHERE user_followers.id_followers=? "+
+                "ORDER BY status.datel DESC "+
+                "LIMIT 5";
+        List<Status> list = new ArrayList<Status>();
+        
+        ResultSet rs = null;
+        
+        try {
+            conn = ConnectionFactory.getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, idUser);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Status tmp = new Status();
+                tmp.setId(rs.getInt("id"));
+                tmp.setIdUser(rs.getInt("id_user"));
+                tmp.setIsi(rs.getString("isi"));
+                tmp.setDatel(rs.getTime("datel"));
+                list.add(tmp);
+            }
+            
+        } 
+        finally {
+            if (rs != null) { rs.close(); }
+            if (ps != null) { ps.close(); }
+            if (conn != null) { conn.close(); }
+        }
+        return list;
     }
 }

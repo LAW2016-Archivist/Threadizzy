@@ -5,32 +5,29 @@
  */
 package controller;
 
-import database.CategoryTable;
 import database.StatusTable;
+import database.ThreadTable;
+import database.UserFollowersTable;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Category;
 import model.Status;
 import model.User;
 
 /**
  *
- * @author seryuzaki-woorld
+ * @author ismail.hassan
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "HomeController", urlPatterns = {"/HomeController"})
+public class HomeController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,32 +39,28 @@ public class LoginController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        User user = new User();
-
-        user.setEmail(request.getParameter("email"));
-        user.setPassword(request.getParameter("password"));
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
         
-        if(User.loginUser(user.getEmail(), user.getPassword())){
-            
-            User us = new User();
-            us.setEmail(String.valueOf(request.getParameter("email")));
-            us.getUser();
-            HttpSession session = request.getSession(true);
-            session.setAttribute("user", us);
-            
-            // tambahkan obyek user yang sedang log in ke session
-            session.setAttribute("userObj", us);
-            String redirectURL = session.getAttribute("baseUrl") + "dashboard/home";
-            response.sendRedirect(redirectURL);
-        }else{
-            HttpSession session = request.getSession(true);
-            session.setAttribute("loginFailed", "Either email or password is incorrect!");
-            String redirectURL = session.getAttribute("baseUrl") + "login-form.jsp";
-            response.sendRedirect(redirectURL);
+        if (action.equals("view")) {
+            view(request, response);
         }
+    }
+    
+    private void view(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        User user = (User) request.getSession().getAttribute("userObj");
+        try {
+            ArrayList<User> followed = (ArrayList<User>) UserFollowersTable.getAllFollowing(user.getId());
+            ArrayList<Status> followedStatus = (ArrayList<Status>) StatusTable.getFollowedStatus(user.getId());
+            ArrayList<Thread> followedThread = (ArrayList<Thread>) ThreadTable.getFollowedThread(user.getId());
+            
+            String viewURL = "/dashboard/user-home.jsp";
+            request.getServletContext().getRequestDispatcher(viewURL).forward(request, response);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(UserFollowController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -82,11 +75,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -100,11 +89,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
