@@ -46,7 +46,7 @@
                                <div class='col-md-5'>
                                    <h2><a href="<%=session.getAttribute("baseUrl")%>dashboard/thread/view-thread.jsp?id=<%=thd.getId() %>"><%=thd.getJudul()%></a></h2>
                                    <p>Post at <%=thd.getDatel()%></p>
-                                   <p>xx Comment xx Likers <%=post.getArrayId().size() %> Post</p> 
+                                   <p><%=post.getArrayId().size() %> Post</p> 
                                </div>
                            </div>
                                

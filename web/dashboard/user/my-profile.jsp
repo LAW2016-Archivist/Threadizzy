@@ -57,7 +57,7 @@
              <% if (loggedUser != null && loggedUser.getId() == viewedUser.getId()) {%> 
              <a class="btn btn-default" href="<%= request.getContextPath() + "/profile/" + viewedUser.getId() + "/edit"%>">Edit</a>
             <% }%>
-            <a href="http://localhost:8080/Threadizzy/profile/1">user1</a>
+            
                     </div>
             </div>
         </div>

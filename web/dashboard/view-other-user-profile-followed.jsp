@@ -45,9 +45,9 @@
                                 </form>
                                 <br>
                                 <div class="well">
-                                    <p>All Status : xx</p>
+<!--                                    <p>All Status : xx</p>
                                     <p>All Thread : xx </p>
-                                    <p>view-other-user-profile-followed.jsp</p>
+                                    <p>view-other-user-profile-followed.jsp</p>-->
                                 </div>  
                             </div>
                         </div>

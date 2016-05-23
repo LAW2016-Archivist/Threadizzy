@@ -36,17 +36,20 @@
                     <div class=" col-md-12">
                         <center>
                             <p>
-                                <% if(logginUser.getImage().equalsIgnoreCase("")){
-                                out.print("   <img  height=\"120\" width=\"120\" class=\"img-circle\" src=\"https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg\"/>");
+                                <% 
+                                //if(logginUser.getImage().equalsIgnoreCase("") || logginUser.getImage() == null){
+                                    out.print("   <img  height=\"120\" width=\"120\" class=\"img-circle\" src=\"https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg\"/>");
                                 
-                                }else{
+                                //}
+                                //else{
                                     
-                                out.print("   <img  height=\"120\" width=\"120\" class=\"img-circle\" src=\""+session.getAttribute("baseUrl")+"img/avatar/"+
-                                        logginUser.getImage()
-                                        +"\"/>");
+                                //out.print("   <img  height=\"120\" width=\"120\" class=\"img-circle\" src=\""+session.getAttribute("baseUrl")+"img/avatar/"+
+                                //        logginUser.getImage()
+                                //        +"\"/>");
                                 
                                     
-                                } %>
+                                //} 
+                                %>
                              
                             </p>
                         </center>
@@ -60,7 +63,7 @@
                             <a href="<%= request.getContextPath() +"/profile/"+ logginUser.getId() %>" class="list-group-item">
                                 My Profile 
                             </a>
-                            <a href="<% out.print(session.getAttribute("baseUrl")); %>dashboard/user/edit-profile.jsp" class="list-group-item">
+                            <a href="<%= request.getContextPath() +"/profile/"+ logginUser.getId()+"/edit"  %>" class="list-group-item">
                                 Update Profile
                             </a>
                             <a href="<% out.print(session.getAttribute("baseUrl"));%>LogoutController" class="list-group-item">
@@ -150,10 +153,10 @@
                         </a>
                         <% } %>
                         <br>
-                        <center>
+<!--                        <center>
                             <a class="btn btn-primary">VIEW ALL THREAD</a>
                         </center>
-
+-->
                     </div>
                     <div class="panel panel-primary">
                         <div class="panel-heading">
@@ -170,9 +173,11 @@
                                 </a>
                                 <% } %>
                                 <br>
+                                <!--
                                 <center>
                                     <a class="btn btn-primary">VIEW ALL</a>
                                 </center>
+                                -->
                             </div>
                         </div>
                     </div>

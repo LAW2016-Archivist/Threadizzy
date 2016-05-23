@@ -45,9 +45,9 @@
                                     <input type="submit" value="Follow">
                                 <br>
                                 <div class="well">
-                                    <p>All Status : xx</p>
+<!--                                    <p>All Status : xx</p>
                                     <p>All Thread : xx</p>
-                                    <p>view-other-user-profile-notfollowed.jsp</p>
+                                    <p>view-other-user-profile-notfollowed.jsp</p>-->
                                 </div>  
                             </div>
                         </div>

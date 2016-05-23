@@ -37,7 +37,6 @@
                             
                             out.println("<a href='#' class='list-group-item'><h4 class='list-group-item-heading'>");
                             out.println(thd.getJudul());
-                            out.println("<p class='list-group-item-text'>xx Likes ");
                             out.println(thd.getDatel());
                             out.println("</p></a>");
                         }

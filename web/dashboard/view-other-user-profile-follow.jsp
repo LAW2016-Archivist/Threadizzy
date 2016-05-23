@@ -35,8 +35,8 @@
                                 </p>    
                                 <br>
                                 <div class="well">
-                                    <p>All Status : xx</p>
-                                    <p>All Thread : xx </p>
+<!--                                    <p>All Status : xx</p>
+                                    <p>All Thread : xx </p>-->
                                 </div>  
                             </div>
                         </div>

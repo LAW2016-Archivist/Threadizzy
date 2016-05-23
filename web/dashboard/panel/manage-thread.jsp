@@ -78,8 +78,6 @@ Author     : seryuzaki-woorld
                                     <p>Created at <%=data.getDatel()%> </p>
                                 </div>
                                 <div class='col-md-3'>
-                                    <p>xx Comment</p>
-                                    <p>xx Likers</p>
                                     <p><%=post.getArrayId().size()%> Post</p>
                                     <p class='btn btn-warning'><%=category.getNama()%></p>
                                 </div>

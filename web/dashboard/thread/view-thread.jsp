@@ -74,10 +74,10 @@
                     
                     <div class="col-md-9">
                         <h1><% out.print(data.getJudul()); %></h1>
-                        <div class="col-md-12" style="text-align: right">
+<!--                        <div class="col-md-12" style="text-align: right">
                             <a class="btn btn-info">Like</a>
                             <a class="btn btn-default">xx Likers</a>
-                        </div>  
+                        </div>  -->
                     </div>
 
 
