@@ -23,6 +23,7 @@ public class Status {
     private int id;
     private int idUser;
     private Time datel;
+    private String namaUser;
 
     public Status() {
         isi = "";
@@ -90,5 +91,19 @@ public class Status {
      */
     public void setId(int id) {
         this.id = id;
+    }
+
+    /**
+     * @return the namaUser
+     */
+    public String getNamaUser() {
+        return namaUser;
+    }
+
+    /**
+     * @param namaUser the namaUser to set
+     */
+    public void setNamaUser(String namaUser) {
+        this.namaUser = namaUser;
     }
 }

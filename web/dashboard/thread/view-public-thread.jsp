@@ -32,7 +32,7 @@
                         for(int i = 0; i < publicThread.size(); i++) {
                             Thread thd = new Thread();
                             thd.setId(publicThread.get(i));
-                            thd.GetThread();
+                            thd.getThread();
                             
                             
                             out.println("<div class='col-md-12'><div class='col-md-5'><h2><a>");
@@ -45,7 +45,7 @@
                         
                         <!--------------------------------------------------------------------------------------------------------------------------------------------------->
                        
-                             <center>
+                            <center>
                             <ul class="pagination pagination-sm">
                                 <li class="disabled"><a href="#">&laquo;</a></li>
                                 <li class="active"><a href="#">1</a></li>

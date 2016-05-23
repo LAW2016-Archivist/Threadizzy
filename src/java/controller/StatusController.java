@@ -92,7 +92,7 @@ public class StatusController extends HttpServlet {
             Logger.getLogger(StatusController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        String redirectURL = request.getContextPath()+"/dashboard/user-home.jsp";
+        String redirectURL = request.getContextPath()+"/dashboard/home";
         response.sendRedirect(redirectURL);
     }
     

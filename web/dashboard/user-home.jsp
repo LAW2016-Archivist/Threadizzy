@@ -1,3 +1,6 @@
+<%@page import="model.Status"%>
+<%@page import="model.Thread"%>
+<%@page import="java.util.ArrayList"%>
 <html>
     <head>
         <jsp:include page="/head.jsp" />
@@ -12,6 +15,9 @@
             
             HttpSession sessionUser=request.getSession(false);  
             User logginUser = (User) request.getSession().getAttribute("userObj");
+            ArrayList<Status> followedStatus = (ArrayList<Status>) request.getAttribute("followedStatus");
+            ArrayList<User> followed = (ArrayList<User>) request.getAttribute("followed");
+            ArrayList<Thread> followedThread = (ArrayList<Thread>) request.getAttribute("followedThread");
             
             
             
@@ -101,64 +107,23 @@
                         <hr>
                     </div>
                     <div class="col-md-12">
+                        
+                    <% for (Status s : followedStatus) { %>
                         <div class="panel panel-default">
+                            <a href ="<%= request.getContextPath()+"/profile/"+s.getIdUser() %>">
                             <div class="panel-heading">
-                                <img  height="30" width="30" class="img-circle" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"/> Name1 
+                                <img  height="30" width="30" class="img-circle" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"/> 
+                                <%= s.getNamaUser() %>
                                 <div class="navbar-right" style="margin-right: 3%">
-                                    <p>xx-xx-xx  On xx:xx AM/PM </p>
+                                    <p><%= s.getDatel().toString() %></p>
                                 </div>
                             </div>
+                            </a>
                             <div class="panel-body">
-                                <p>Hari ini Galau cuyyy Vangke</p>   
+                                <p><%= s.getIsi() %></p>   
                             </div>
                         </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <img  height="30" width="30" class="img-circle" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"/> Name1 
-                                <div class="navbar-right" style="margin-right: 3%">
-                                    <p>xx-xx-xx  On xx:xx AM/PM </p>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <p>Hari ini Galau cuyyy Vangke</p>   
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <img  height="30" width="30" class="img-circle" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"/> Name1 
-                                <div class="navbar-right" style="margin-right: 3%">
-                                    <p>xx-xx-xx  On xx:xx AM/PM </p>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <p>Hari ini Galau cuyyy Vangke</p>   
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <img  height="30" width="30" class="img-circle" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"/> Name1 
-                                <div class="navbar-right" style="margin-right: 3%">
-                                    <p>xx-xx-xx  On xx:xx AM/PM </p>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <p>Hari ini Galau cuyyy Vangke</p>   
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <img  height="30" width="30" class="img-circle" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"/> Name1 
-                                <div class="navbar-right" style="margin-right: 3%">
-                                    <p>xx-xx-xx  On xx:xx AM/PM </p>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <p>Hari ini Galau cuyyy Vangke</p>   
-                            </div>
-                        </div>
+                    <% } %>
                         <center>
                             <ul class="pagination pagination-sm">
                                 <li class="disabled"><a href="#">&laquo;</a></li>
@@ -178,22 +143,12 @@
                     <div class="list-group">
                         <p>Recently Thread People Who you Follow</p>
                         <hr >
+                        <% for (Thread t : followedThread) { %>
                         <a href="#" class="list-group-item">
-                            <h4 class="list-group-item-heading">Title1</h4>
-                            <p class="list-group-item-text">by:name1 at xx:xx On xx-xx-xxxx</p>
+                            <h4 class="list-group-item-heading"><%= t.getJudul() %></h4>
+                            <p class="list-group-item-text">by: <%= t.getNamaUser() %> at <%= t.getDatel().toString() %></p>
                         </a>
-                        <a href="#" class="list-group-item">
-                            <h4 class="list-group-item-heading">Title1</h4>
-                            <p class="list-group-item-text">by:name1 at xx:xx On xx-xx-xxxx</p>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <h4 class="list-group-item-heading">Title1</h4>
-                            <p class="list-group-item-text">by:name1 at xx:xx On xx-xx-xxxx</p>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <h4 class="list-group-item-heading">Title1</h4>
-                            <p class="list-group-item-text">by:name1 at xx:xx On xx-xx-xxxx</p>
-                        </a>
+                        <% } %>
                         <br>
                         <center>
                             <a class="btn btn-primary">VIEW ALL THREAD</a>
@@ -206,21 +161,14 @@
                         </div>
                         <div class="panel-body">
                             <div class="list-group">
-                                <a href="#" class="list-group-item">
-                                    <h4 class="list-group-item-heading"><img  height="30" width="30" class="img-circle" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"/> Name1</h4>
+                                <% for (User u : followed) { %>
+                                <a href="<%= request.getContextPath()+"/profile/"+u.getId() %>" class="list-group-item">
+                                    <h4 class="list-group-item-heading">
+                                        <img  height="30" width="30" class="img-circle" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"/> 
+                                        <%= u.getNama() %>
+                                    </h4>
                                 </a>
-                                <a href="#" class="list-group-item">
-                                    <h4 class="list-group-item-heading"><img  height="30" width="30" class="img-circle" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"/> Name2</h4>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <h4 class="list-group-item-heading"><img  height="30" width="30" class="img-circle" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"/> Name3</h4>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <h4 class="list-group-item-heading"><img  height="30" width="30" class="img-circle" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"/> Name4</h4>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <h4 class="list-group-item-heading"><img  height="30" width="30" class="img-circle" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"/> Name5</h4>
-                                </a>
+                                <% } %>
                                 <br>
                                 <center>
                                     <a class="btn btn-primary">VIEW ALL</a>

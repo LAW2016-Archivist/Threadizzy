@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Status;
 import model.User;
+import model.Thread;
 
 /**
  *
@@ -40,8 +41,12 @@ public class HomeController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
+        if (request.getSession().getAttribute("userObj") == null) {
+            response.sendRedirect(request.getSession().getAttribute("baseUrl") + "login-form.jsp");
+        }
         
+        
+        String action = request.getParameter("action");
         if (action.equals("view")) {
             view(request, response);
         }
@@ -53,6 +58,9 @@ public class HomeController extends HttpServlet {
             ArrayList<User> followed = (ArrayList<User>) UserFollowersTable.getAllFollowing(user.getId());
             ArrayList<Status> followedStatus = (ArrayList<Status>) StatusTable.getFollowedStatus(user.getId());
             ArrayList<Thread> followedThread = (ArrayList<Thread>) ThreadTable.getFollowedThread(user.getId());
+            request.setAttribute("followed", followed);
+            request.setAttribute("followedStatus", followedStatus);
+            request.setAttribute("followedThread", followedThread);
             
             String viewURL = "/dashboard/user-home.jsp";
             request.getServletContext().getRequestDispatcher(viewURL).forward(request, response);

@@ -24,6 +24,7 @@ public class Thread {
     private int id, id_category, id_user, status;
     private ArrayList<Integer> arrayId = new ArrayList();
     private Timestamp datel;
+    private String namaUser;
 
     public Thread() {
         judul = "";
@@ -158,5 +159,19 @@ public class Thread {
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    /**
+     * @return the namaUser
+     */
+    public String getNamaUser() {
+        return namaUser;
+    }
+
+    /**
+     * @param namaUser the namaUser to set
+     */
+    public void setNamaUser(String namaUser) {
+        this.namaUser = namaUser;
     }
 }

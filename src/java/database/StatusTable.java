@@ -81,9 +81,11 @@ public class StatusTable {
         String query = "SELECT * from status " +
                 "INNER JOIN user_followers " +
                 "ON status.id_user = user_followers.id_user " +
+                "INNER JOIN user " +
+                "ON user_followers.id_user = user.id " +
                 "WHERE user_followers.id_followers=? "+
                 "ORDER BY status.datel DESC "+
-                "LIMIT 5";
+                "LIMIT 5 ";
         List<Status> list = new ArrayList<Status>();
         
         ResultSet rs = null;
@@ -100,6 +102,7 @@ public class StatusTable {
                 tmp.setIdUser(rs.getInt("id_user"));
                 tmp.setIsi(rs.getString("isi"));
                 tmp.setDatel(rs.getTime("datel"));
+                tmp.setNamaUser(rs.getString("nama"));
                 list.add(tmp);
             }
             

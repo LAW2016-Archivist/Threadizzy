@@ -37,7 +37,7 @@ Author     : seryuzaki-woorld
                                 Thread data = new Thread();
                                 data.setId(id_thread.get(i));
 
-                                data.GetThread();
+                                data.getThread();
 
                                 Post post = new Post();
                                 post.setIdThread(data.getId());
@@ -55,7 +55,7 @@ Author     : seryuzaki-woorld
                                 out.println(" Post</p><p class='btn btn-warning'>");
                                 Category category = new Category();
                                 category.setId(data.getIdCategory());
-                                category.GetCategory();
+                                category.getCategory();
                                 out.print(category.getNama());
                                 out.println("</p></div>");
                                 out.println("<div class='col-md-4' style='margin-top: 4%'>");

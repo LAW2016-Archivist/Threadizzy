@@ -22,7 +22,10 @@ public class UserFollowersTable {
     private static PreparedStatement ps;
     
     public static ArrayList<User> getAllFollowers(int idUser) throws SQLException {
-        String query = "SELECT * FROM user_followers WHERE id_user=?";
+//        String query = "SELECT * FROM user_followers JOIN user WHERE id_user=?";
+        String query = "SELECT * FROM user_followers " +
+                "JOIN user ON user.id = user_followers.id_followers "+
+                "WHERE user_followers.id_user=? ";
         List<User> list = new ArrayList<User>();
         
         ResultSet rs = null;
@@ -36,7 +39,7 @@ public class UserFollowersTable {
             
             while (rs.next()) {
                 User tmp = new User();
-                tmp.setId(rs.getInt("id"));
+                tmp.setId(rs.getInt("user.id"));
                 tmp.setNama(rs.getString("nama"));
                 tmp.setEmail(rs.getString("email"));
                 list.add(tmp);
@@ -53,7 +56,9 @@ public class UserFollowersTable {
     }
     
     public static ArrayList<User> getAllFollowing(int idUser) throws SQLException {
-        String query = "SELECT * FROM user_followers WHERE id_followers=?";
+        String query = "SELECT * FROM user_followers " +
+                "JOIN user ON user.id = user_followers.id_user "+
+                "WHERE id_followers=? ";
         List<User> list = new ArrayList<User>();
         
         ResultSet rs = null;
@@ -67,7 +72,7 @@ public class UserFollowersTable {
             
             while (rs.next()) {
                 User tmp = new User();
-                tmp.setId(rs.getInt("id"));
+                tmp.setId(rs.getInt("user.id"));
                 tmp.setNama(rs.getString("nama"));
                 tmp.setEmail(rs.getString("email"));
                 list.add(tmp);
